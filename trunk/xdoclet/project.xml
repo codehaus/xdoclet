@@ -64,13 +64,13 @@
 
         <dependency>
             <id>generama</id>
-            <version>1.0-alpha-1-SNAPSHOT</version>
+            <version>1.0</version>
             <url>http://xdoclet.codehaus.org/generama/</url>
         </dependency>
 
         <dependency>
             <id>qdox</id>
-            <version>1.4-SNAPSHOT</version>
+            <version>1.5-SNAPSHOT</version>
             <url>http://qdox.codehaus.org/</url>
         </dependency>
 

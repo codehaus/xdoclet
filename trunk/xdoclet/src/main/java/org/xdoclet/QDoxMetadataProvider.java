@@ -1,18 +1,18 @@
 package org.xdoclet;
 
+import com.thoughtworks.qdox.JavaDocBuilder;
+import com.thoughtworks.qdox.model.JavaClass;
 import org.generama.MetadataProvider;
 import org.picocontainer.Startable;
 
-import java.util.Collection;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.io.*;
-import java.net.URL;
-
-import com.thoughtworks.qdox.JavaDocBuilder;
-import com.thoughtworks.qdox.model.JavaClass;
 
 /**
  * This MetadataProvider provides QDox {@link JavaClass} objects.

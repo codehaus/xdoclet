@@ -19,16 +19,8 @@ public abstract class XDocletTag extends DefaultDocletTag {
     protected boolean isOnField;
     protected boolean isOnClass;
 
-    public XDocletTag(String name, String value, int lineNumber) {
-        super(name, value, lineNumber);
-    }
-
-    public void setContext(AbstractJavaEntity owner) {
-        super.setContext(owner);
-        isOnConstructor = false;
-        isOnMethod = false;
-        isOnField = false;
-        isOnClass = false;
+    protected XDocletTag(String name, String value, AbstractJavaEntity context, int lineNumber) {
+        super(name, value, context, lineNumber);
         if (getContext().getClass().equals(JavaMethod.class)) {
             JavaMethod method = (JavaMethod) getContext();
             isOnConstructor = method.isConstructor();
@@ -44,7 +36,7 @@ public abstract class XDocletTag extends DefaultDocletTag {
     protected abstract void validateLocation();
 
     public final void bomb(String message) {
-        throw new RuntimeException("@" + getName() + " in " + getLocation(this) + " (line " + getLineNumber() + "): " + message);
+        throw new RuntimeException("@" + getName() + " " + getValue() + "\n in " + getLocation(this) + " (line " + getLineNumber() + "):\n" + message);
     }
 
     static String getLocation(DocletTag tag) {
