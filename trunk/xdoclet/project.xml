@@ -126,7 +126,7 @@
 
         <dependency>
             <id>commons-jelly</id>
-            <version>1.0-beta-4</version>
+            <version>1.0-RC2-SNAPSHOT</version>
             <url>http://jakarta.apache.org/jelly/</url>
         </dependency>
 
