@@ -30,9 +30,9 @@
     <repository>
         <connection>scm:cvs:pserver:anonymous@cvs.codehaus.org:/cvsroot/xdoclet:xdoclet</connection>
         <developerConnection>scm:cvs:ext:${maven.username}@cvs.codehaus.org:/cvsroot/xdoclet:xdoclet</developerConnection>
-        <url>http://cvs.xdoclet.codehaus.org/xdoclet</url>
+        <!--url>http://cvs.xdoclet.codehaus.org/xdoclet</url-->
         <!-- statcvs only works with this one: -->
-        <!--url>http://cvs.codehaus.org/viewcvs.cgi/pico/?cvsroot=picocontainer</url-->
+        <url>http://cvs.codehaus.org/viewcvs.cgi/xdoclet/?cvsroot=xdoclet</url>
     </repository>
 
     <developers>
@@ -211,13 +211,13 @@
     </build>
 
     <reports>
-        <report>maven-license-plugin</report>
-        <report>maven-faq-plugin</report>
-        <report>maven-simian-plugin</report>
-        <report>maven-changes-plugin</report>
-        <report>maven-statcvs-plugin</report>
-        <report>maven-jxr-plugin</report>
         <report>maven-javadoc-plugin</report>
+        <report>maven-faq-plugin</report>
+        <report>maven-changes-plugin</report>
+        <!--report>maven-statcvs-plugin</report-->
+        <report>maven-license-plugin</report>
+        <report>maven-simian-plugin</report>
+        <report>maven-jxr-plugin</report>
         <report>maven-junit-report-plugin</report>
         <report>maven-clover-plugin</report>
     </reports>
