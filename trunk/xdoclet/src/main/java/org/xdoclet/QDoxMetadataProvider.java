@@ -1,7 +1,7 @@
 package org.xdoclet;
 
 import org.generama.MetadataProvider;
-import org.picocontainer.lifecycle.Startable;
+import org.picocontainer.Startable;
 
 import java.util.Collection;
 import java.util.Arrays;
