@@ -193,7 +193,6 @@
             </includes>
             <excludes>
                 <exclude>**/*XDocletTaskTestCase.java</exclude>
-                <exclude>**/*XDocletTestCase.java</exclude>
             </excludes>
 
             <resources>
@@ -204,6 +203,7 @@
                         <include>**/*.jelly</include>
                         <include>**/*.vm</include>
                         <include>**/*.xml</include>
+                        <include>**/*.properties</include>
                     </includes>
                 </resource>
             </resources>
