@@ -38,9 +38,11 @@ public abstract class AbstractJavaGeneratingPluginTestCase extends AbstractPlugi
         return expectedMemory.toCharArray();
     }
 
-    protected final MetadataProvider createMetadataProvider() throws Exception {
+    protected MetadataProvider createMetadataProvider() throws Exception {
         return new QDoxMetadataProvider(getTestSource());
     }
 
-    protected abstract Reader getTestSource() throws IOException;
+    protected Reader getTestSource() throws IOException {
+        return null;
+    }
 }

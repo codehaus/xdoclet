@@ -1,19 +1,5 @@
 package org.xdoclet.ant;
 
-import org.xdoclet.TestPlugin;
-import org.xdoclet.QDoxMetadataProvider;
-import org.xdoclet.ConfigurableDocletTagFactory;
-import org.nanocontainer.ant.PicoContainerTask;
-import org.nanocontainer.ant.AbstractPicoContainerTaskTestCase;
-import org.nanocontainer.ant.Component;
-import org.apache.tools.ant.types.FileSet;
-import org.picocontainer.PicoInitializationException;
-
-import java.io.File;
-import java.util.Collection;
-
-import com.thoughtworks.qdox.model.JavaClass;
-
 /**
  * @foo bla bla
  * @author Aslak Helles&oslash;y
