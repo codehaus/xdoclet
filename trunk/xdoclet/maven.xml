@@ -2,4 +2,27 @@
          xmlns:j="jelly:core"
          xmlns:maven="jelly:maven">
 
+
+  <goal name="alljar">
+    <mkdir dir="${maven.build.dir}/alljar"/>
+  
+    <j:forEach var="lib" items="${pom.artifacts}">
+      <unjar 
+        dest="${maven.build.dir}/alljar"
+        src="${lib.path}"/>
+    </j:forEach>
+    
+    <jar
+      jarfile="${maven.build.dir}/${maven.final.name}-all.jar"
+      basedir="${maven.build.dir}/alljar"
+      excludes="junit/**/*,org/apache/tools/**/*,org/custommonkey/**/*,antlr/**/*">
+      <manifest>
+        <attribute name="Built-By" value="${user.name}"/>
+        <attribute name="Package" value="${pom.package}"/>
+      </manifest>
+    </jar>
+
+  </goal>
+  
+
 </project>
