@@ -8,7 +8,7 @@
 <project>
     <pomVersion>3</pomVersion>
     <id>xdoclet</id>
-    <currentVersion>2.0</currentVersion>
+    <currentVersion>2.0.1-SNAPSHOT</currentVersion>
     <name>XDoclet</name>
     <organization>
         <name>XDoclet Team</name>
