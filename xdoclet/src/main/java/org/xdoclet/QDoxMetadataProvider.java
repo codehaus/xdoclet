@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.io.*;
+import java.net.URL;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
 import com.thoughtworks.qdox.model.JavaClass;
@@ -21,22 +22,22 @@ import com.thoughtworks.qdox.model.JavaClass;
 public class QDoxMetadataProvider implements MetadataProvider, Startable {
     private final ConfigurableDocletTagFactory docletTagFactory = new ConfigurableDocletTagFactory();
 
-    private JavaSourceProvider fileProvider;
+    private JavaSourceProvider urlProvider;
     private File singleSourceOrDirectory;
 
     /**
      * Main constructor. Gives fine control over what sources to parse.
      */
     public QDoxMetadataProvider(JavaSourceProvider fileProvider) {
-        this.fileProvider = fileProvider;
+        this.urlProvider = fileProvider;
     }
 
     /**
      * Convenience constructor for testing.
      */
-    public QDoxMetadataProvider(final Reader singleSource) {
+    public QDoxMetadataProvider(final URL singleSource) {
         this(new JavaSourceProvider() {
-            public Collection getFiles() {
+            public Collection getURLs() {
                 return Collections.singleton(singleSource);
             }
 
@@ -67,8 +68,8 @@ public class QDoxMetadataProvider implements MetadataProvider, Startable {
     public Collection getMetadata() {
         try {
             JavaDocBuilder builder = new JavaDocBuilder(docletTagFactory);
-            if (fileProvider != null) {
-                builder.setEncoding(fileProvider.getEncoding());
+            if (urlProvider != null) {
+                builder.setEncoding(urlProvider.getEncoding());
                 addSourcesFromJavaSourceProvider(builder);
             } else {
                 if (singleSourceOrDirectory.isDirectory()) {
@@ -86,16 +87,10 @@ public class QDoxMetadataProvider implements MetadataProvider, Startable {
     }
 
     private void addSourcesFromJavaSourceProvider(JavaDocBuilder builder) throws IOException {
-        Collection files = fileProvider.getFiles();
-        for (Iterator iterator = files.iterator(); iterator.hasNext();) {
-            Object next = iterator.next();
-            if (next instanceof File) {
-                File file = (File) next;
-                builder.addSource(file);
-            } else if (next instanceof Reader) {
-                Reader reader = (Reader) next;
-                builder.addSource(reader);
-            }
+        Collection urls = urlProvider.getURLs();
+        for (Iterator iterator = urls.iterator(); iterator.hasNext();) {
+            URL next = (URL) iterator.next();
+            builder.addSource(next);
         }
     }
 

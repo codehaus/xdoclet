@@ -1,13 +1,13 @@
 package org.xdoclet;
 
-import com.thoughtworks.qdox.model.DocletTag;
-import com.thoughtworks.qdox.model.DefaultDocletTag;
 import com.thoughtworks.qdox.model.AbstractJavaEntity;
-import com.thoughtworks.qdox.model.JavaMethod;
-import com.thoughtworks.qdox.model.JavaField;
+import com.thoughtworks.qdox.model.DefaultDocletTag;
+import com.thoughtworks.qdox.model.DocletTag;
 import com.thoughtworks.qdox.model.JavaClass;
+import com.thoughtworks.qdox.model.JavaField;
+import com.thoughtworks.qdox.model.JavaMethod;
 
-import java.io.File;
+import java.net.URL;
 
 /**
  * @author Aslak Helles&oslash;y
@@ -49,9 +49,9 @@ public abstract class XDocletTag extends DefaultDocletTag {
 
     static String getLocation(DocletTag tag) {
         String location = null;
-        File sourceFile = tag.getContext().getSource().getFile();
-        if (sourceFile != null) {
-            location = sourceFile.getAbsolutePath();
+        URL sourceURL = tag.getContext().getSource().getURL();
+        if (sourceURL != null) {
+            location = sourceURL.toExternalForm();
         } else {
             // dunno what file it is (might be from a reader).
             JavaClass clazz;

@@ -1,6 +1,7 @@
 package org.xdoclet;
 
 import java.io.*;
+import java.net.URL;
 
 import com.thoughtworks.qdox.junit.APITestCase;
 import org.generama.MetadataProvider;
@@ -20,12 +21,9 @@ import antlr.TokenStreamException;
  */
 public abstract class AbstractJavaGeneratingPluginTestCase extends AbstractPluginTestCase {
 
-    protected final void compare(Reader expected, Reader actual) throws RecognitionException, TokenStreamException, IOException {
-        char[] expectedChars = toCharArray(expected);
-        char[] actualChars = toCharArray(actual);
-
-        APITestCase.assertEquals(new CharArrayReader(expectedChars), new CharArrayReader(actualChars));
-        ASTTestCase.assertEquals(new CharArrayReader(expectedChars), new CharArrayReader(actualChars));
+    protected final void compare(URL expected, URL actual) throws RecognitionException, TokenStreamException, IOException {
+        APITestCase.assertApiEquals(expected, actual);
+        ASTTestCase.assertAstEquals(expected, actual);
     }
 
     private char[] toCharArray(Reader reader) throws IOException {
@@ -42,7 +40,7 @@ public abstract class AbstractJavaGeneratingPluginTestCase extends AbstractPlugi
         return new QDoxMetadataProvider(getTestSource());
     }
 
-    protected Reader getTestSource() throws IOException {
+    protected URL getTestSource() throws IOException {
         return null;
     }
 }
