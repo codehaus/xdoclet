@@ -69,9 +69,9 @@
         </dependency>
 
         <dependency>
-            <groupId>qfork</groupId>
-            <artifactId>qfork</artifactId>
-            <version>1.7-SNAPSHOT</version>
+            <groupId>qdox</groupId>
+            <artifactId>qdox</artifactId>
+            <version>1.6-SNAPSHOT</version>
         </dependency>
 
         <dependency>
