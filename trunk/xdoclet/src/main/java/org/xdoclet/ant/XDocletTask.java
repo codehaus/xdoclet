@@ -9,6 +9,7 @@ import org.picocontainer.MutablePicoContainer;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.io.IOException;
 
 /**
  * @author Aslak Helles&oslash;y
@@ -17,7 +18,7 @@ import java.util.Collection;
 public class XDocletTask extends AbstractGeneramaTask {
     private Collection filesets = new ArrayList();
 
-    protected Generama createGenerama() {
+    protected Generama createGenerama() throws IOException {
         return new XDoclet(AntFileProvider.class, FileWriterMapper.class) {
             public void install(MutablePicoContainer pico) {
                 super.install(pico);
