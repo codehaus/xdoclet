@@ -9,24 +9,25 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.ArrayList;
 import java.io.File;
+import java.net.MalformedURLException;
 
 /**
  * @author Aslak Helles&oslash;y
  * @version $Revision$
  */
-public class AntFileProvider implements JavaSourceProvider {
+public class AntSourceProvider implements JavaSourceProvider {
     private final Collection filesets;
     private final Project project;
     private final String encoding;
 
-    public AntFileProvider(Collection filesets, Project project, String encoding) {
+    public AntSourceProvider(Collection filesets, Project project, String encoding) {
         this.filesets = filesets;
         this.project = project;
         this.encoding = encoding;
     }
 
-    public Collection getFiles() {
-        Collection files = new ArrayList();
+    public Collection getURLs() {
+        Collection urls = new ArrayList();
         for (Iterator iterator = filesets.iterator(); iterator.hasNext();) {
             FileSet fileSet = (FileSet) iterator.next();
             DirectoryScanner directoryScanner = fileSet.getDirectoryScanner(project);
@@ -34,10 +35,14 @@ public class AntFileProvider implements JavaSourceProvider {
             for (int i = 0; i < srcFiles.length; i++) {
                 String srcFile = srcFiles[i];
                 File file = new File(directoryScanner.getBasedir(), srcFile);
-                files.add(file);
+                try {
+                    urls.add(file.toURL());
+                } catch (MalformedURLException e) {
+                    throw new RuntimeException(e.getMessage());
+                }
             }
         }
-        return files;
+        return urls;
     }
 
     public String getEncoding() {
