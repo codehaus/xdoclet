@@ -137,7 +137,7 @@
 
         <dependency>
             <id>xmlunit</id>
-            <version>0.8</version>
+            <version>1.0</version>
             <url></url>
         </dependency>
 

@@ -13,7 +13,7 @@ import antlr.TokenStreamException;
  * Baseclass for testing generation of Java sources. Uses QDox'
  * APITestCase internally to compare equality of Java Sources.
  *
- * TODO move to Generama, this will be needed for RDBMSTableMetadataProvider too.
+ * TODO move to Generama, this will be needed for RdbmsTableFromJdbcMetadataProvider too.
  * 
  * @author Aslak Helles&oslash;y
  * @version $Revision$
