@@ -81,22 +81,17 @@
         </dependency>
 
         <dependency>
-            <groupId>picocontainer</groupId>
-            <artifactId>picoextras-ant</artifactId>
-            <version>1.0-alpha-1-SNAPSHOT</version>
-            <url>http://www.picocontainer.codehaus.org/picoextras/ant/</url>
+            <groupId>nanocontainer</groupId>
+            <artifactId>nanocontainer-ant</artifactId>
+            <version>1.0-beta-1-SNAPSHOT</version>
+            <url></url>
         </dependency>
 
         <dependency>
-            <groupId>picocontainer</groupId>
-            <artifactId>picoextras-integrationkit</artifactId>
-            <version>1.0-alpha-1-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>picocontainer</groupId>
-            <artifactId>picoextras-reflection</artifactId>
-            <version>1.0-alpha-1-SNAPSHOT</version>
+            <groupId>nanocontainer</groupId>
+            <artifactId>nanocontainer</artifactId>
+            <version>1.0-beta-1-SNAPSHOT</version>
+            <url></url>
         </dependency>
 
         <dependency>
@@ -131,7 +126,7 @@
 
         <dependency>
             <id>commons-jelly</id>
-            <version>20030310.073407</version>
+            <version>1.0-beta-4</version>
             <url>http://jakarta.apache.org/jelly/</url>
         </dependency>
 
