@@ -1,13 +1,17 @@
 package org.xdoclet;
 
-import com.thoughtworks.qdox.model.DocletTagFactory;
-import com.thoughtworks.qdox.model.DocletTag;
 import com.thoughtworks.qdox.model.DefaultDocletTag;
-import com.thoughtworks.qdox.model.JavaSource;
+import com.thoughtworks.qdox.model.DocletTag;
+import com.thoughtworks.qdox.model.DocletTagFactory;
 
-import java.util.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * A paranoid tag factory that will remember
@@ -46,7 +50,7 @@ public class ConfigurableDocletTagFactory implements DocletTagFactory {
         throw new UnsupportedOperationException();
     }
 
-    public DocletTag createDocletTag(String tag, String text, int lineNumber, JavaSource javaSource) {
+    public DocletTag createDocletTag(String tag, String text, int lineNumber) {
         Class tagClass = (Class) registeredTags.get(tag);
 
         boolean isKnown = true;
@@ -55,8 +59,8 @@ public class ConfigurableDocletTagFactory implements DocletTagFactory {
             isKnown = false;
         }
         try {
-            Constructor newTag = tagClass.getConstructor(new Class[] {String.class, String.class, Integer.TYPE, JavaSource.class});
-            DocletTag result = (DocletTag) newTag.newInstance(new Object[]{tag, text, new Integer(lineNumber), javaSource});
+            Constructor newTag = tagClass.getConstructor(new Class[] {String.class, String.class, Integer.TYPE});
+            DocletTag result = (DocletTag) newTag.newInstance(new Object[]{tag, text, new Integer(lineNumber)});
 
             if (!isKnown) {
                 unknownTags.add(result);

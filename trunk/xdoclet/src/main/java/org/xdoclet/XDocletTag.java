@@ -1,0 +1,67 @@
+package org.xdoclet;
+
+import com.thoughtworks.qdox.model.DefaultDocletTag;
+import com.thoughtworks.qdox.model.AbstractJavaEntity;
+import com.thoughtworks.qdox.model.JavaMethod;
+import com.thoughtworks.qdox.model.JavaField;
+import com.thoughtworks.qdox.model.JavaClass;
+
+import java.io.File;
+
+/**
+ * @author Aslak Helles&oslash;y
+ * @version $Revision$
+ */
+public abstract class XDocletTag extends DefaultDocletTag {
+    protected boolean isOnConstructor;
+    protected boolean isOnMethod;
+    protected boolean isOnField;
+    protected boolean isOnClass;
+
+    public XDocletTag(String name, String value, int lineNumber) {
+        super(name, value, lineNumber);
+    }
+
+    public void setContext(AbstractJavaEntity owner) {
+        super.setContext(owner);
+        isOnConstructor = false;
+        isOnMethod = false;
+        isOnField = false;
+        isOnClass = false;
+        if (getContext().getClass().equals(JavaMethod.class)) {
+            JavaMethod method = (JavaMethod) getContext();
+            isOnConstructor = method.isConstructor();
+            isOnMethod = !method.isConstructor();
+        } else if (getContext().getClass().equals(JavaField.class)) {
+            isOnField = true;
+        } else {
+            isOnClass = true;
+        }
+        validateLocation();
+    }
+
+    protected abstract void validateLocation();
+
+    public final void bomb(String message) {
+        throw new RuntimeException("@" + getName() + " in " + getLocation() + " (line " + getLineNumber() + "): " + message);
+    }
+
+    private String getLocation() {
+        String location = null;
+        File sourceFile = getContext().getSource().getFile();
+        if (sourceFile != null) {
+            location = sourceFile.getAbsolutePath();
+        } else {
+            // dunno what file it is (might be from a reader).
+            JavaClass clazz;
+            if (getContext() instanceof JavaClass) {
+                // it's on a class (outer class)
+                clazz = (JavaClass) getContext();
+            } else {
+                clazz = (JavaClass) getContext().getParent();
+            }
+            location = clazz.getFullyQualifiedName();
+        }
+        return location;
+    }
+}
