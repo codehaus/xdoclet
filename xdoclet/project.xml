@@ -64,7 +64,7 @@
 
         <dependency>
             <id>qdox</id>
-            <version>1.3-SNAPSHOT</version>
+            <version>1.4-SNAPSHOT</version>
             <url>http://qdox.codehaus.org/</url>
         </dependency>
 
@@ -141,11 +141,11 @@
             <url></url>
         </dependency>
 
-        <dependency>
+        <!--dependency>
             <id>qdox-attributes</id>
             <version>0.7-SNAPSHOT</version>
             <url></url>
-        </dependency>
+        </dependency-->
 
         <dependency>
             <id>antlr</id>
