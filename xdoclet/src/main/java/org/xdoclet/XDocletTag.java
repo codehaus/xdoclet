@@ -2,12 +2,8 @@ package org.xdoclet;
 
 import com.thoughtworks.qdox.model.AbstractJavaEntity;
 import com.thoughtworks.qdox.model.DefaultDocletTag;
-import com.thoughtworks.qdox.model.DocletTag;
-import com.thoughtworks.qdox.model.JavaClass;
 import com.thoughtworks.qdox.model.JavaField;
 import com.thoughtworks.qdox.model.JavaMethod;
-
-import java.net.URL;
 
 /**
  * @author Aslak Helles&oslash;y
@@ -21,11 +17,11 @@ public abstract class XDocletTag extends DefaultDocletTag {
 
     protected XDocletTag(String name, String value, AbstractJavaEntity context, int lineNumber) {
         super(name, value, context, lineNumber);
-        if (getContext().getClass().equals(JavaMethod.class)) {
+        if (JavaMethod.class.isAssignableFrom(getContext().getClass())) {
             JavaMethod method = (JavaMethod) getContext();
             isOnConstructor = method.isConstructor();
             isOnMethod = !method.isConstructor();
-        } else if (getContext().getClass().equals(JavaField.class)) {
+        } else if (JavaField.class.isAssignableFrom(getContext().getClass())) {
             isOnField = true;
         } else {
             isOnClass = true;
@@ -37,24 +33,5 @@ public abstract class XDocletTag extends DefaultDocletTag {
 
     public final void bomb(String message) {
         throw new RuntimeException("@" + getName() + " " + getValue() + "\n in " + getLocation(this) + " (line " + getLineNumber() + "):\n" + message);
-    }
-
-    static String getLocation(DocletTag tag) {
-        String location = null;
-        URL sourceURL = tag.getContext().getSource().getURL();
-        if (sourceURL != null) {
-            location = sourceURL.toExternalForm();
-        } else {
-            // dunno what file it is (might be from a reader).
-            JavaClass clazz;
-            if (tag.getContext() instanceof JavaClass) {
-                // it's on a class (outer class)
-                clazz = (JavaClass) tag.getContext();
-            } else {
-                clazz = (JavaClass) tag.getContext().getParent();
-            }
-            location = clazz.getFullyQualifiedName();
-        }
-        return location;
     }
 }

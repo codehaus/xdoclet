@@ -2,6 +2,7 @@ package org.xdoclet;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
 import com.thoughtworks.qdox.model.JavaClass;
+import com.thoughtworks.qdox.model.DocletTagFactory;
 import org.generama.MetadataProvider;
 import org.picocontainer.Startable;
 
@@ -58,7 +59,7 @@ public class QDoxMetadataProvider implements MetadataProvider, Startable {
         this.singleSourceOrDirectory = singleSourceOrDirectory;
     }
 
-    public ConfigurableDocletTagFactory getDocletTagFactory() {
+    public DocletTagFactory getDocletTagFactory() {
         return docletTagFactory;
     }
 
