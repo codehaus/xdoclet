@@ -1,18 +1,17 @@
 package org.xdoclet;
 
-import org.generama.Generama;
+import junit.framework.TestCase;
 import org.generama.tests.SinkWriterMapper;
+import org.generama.MetadataProvider;
 import org.picocontainer.MutablePicoContainer;
 import org.picocontainer.defaults.DefaultPicoContainer;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
-import java.io.IOException;
-
-import junit.framework.TestCase;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Aslak Helles&oslash;y
@@ -52,7 +51,7 @@ public class XDocletTestCase extends TestCase {
         MutablePicoContainer pico = new DefaultPicoContainer();
         xDoclet.install(pico);
 
-        QDoxMetadataProvider mp = (QDoxMetadataProvider) pico.getComponentInstance(QDoxMetadataProvider.class);
+        QDoxMetadataProvider mp = (QDoxMetadataProvider) pico.getComponentInstanceOfType(MetadataProvider.class);
         assertNotNull(mp);
     }
 
