@@ -37,6 +37,10 @@ public class QDoxMetadataProvider implements MetadataProvider {
             public Collection getFiles() throws IOException {
                 return Collections.singleton(singleSource);
             }
+
+            public String getEncoding() {
+                return "ISO-8859-1";
+            }
         });
     }
 
@@ -57,10 +61,11 @@ public class QDoxMetadataProvider implements MetadataProvider {
      */
     public Collection getMetadata() throws IOException {
         JavaDocBuilder builder = new JavaDocBuilder(docletTagFactory);
-        if(fileProvider != null) {
+        if (fileProvider != null) {
+            builder.setEncoding(fileProvider.getEncoding());
             addSourcesFromJavaSourceProvider(builder);
         } else {
-            if(singleSourceOrDirectory.isDirectory()) {
+            if (singleSourceOrDirectory.isDirectory()) {
                 builder.addSourceTree(singleSourceOrDirectory);
             } else {
                 builder.addSource(singleSourceOrDirectory);
@@ -73,10 +78,10 @@ public class QDoxMetadataProvider implements MetadataProvider {
         Collection files = fileProvider.getFiles();
         for (Iterator iterator = files.iterator(); iterator.hasNext();) {
             Object next = iterator.next();
-            if(next instanceof File) {
+            if (next instanceof File) {
                 File file = (File) next;
                 builder.addSource(file);
-            } else if(next instanceof Reader) {
+            } else if (next instanceof Reader) {
                 Reader reader = (Reader) next;
                 builder.addSource(reader);
             }

@@ -17,10 +17,12 @@ import java.io.File;
 public class AntFileProvider implements JavaSourceProvider {
     private final Collection filesets;
     private final Project project;
+    private final String encoding;
 
-    public AntFileProvider(Collection filesets, Project project) {
+    public AntFileProvider(Collection filesets, Project project, String encoding) {
         this.filesets = filesets;
         this.project = project;
+        this.encoding = encoding;
     }
 
     public Collection getFiles() {
@@ -36,5 +38,9 @@ public class AntFileProvider implements JavaSourceProvider {
             }
         }
         return files;
+    }
+
+    public String getEncoding() {
+        return encoding;
     }
 }

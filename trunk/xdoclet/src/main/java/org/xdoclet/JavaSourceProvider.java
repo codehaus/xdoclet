@@ -12,4 +12,9 @@ public interface JavaSourceProvider {
      * @return a Collection of {@link java.io.File} or {@link java.io.Reader}.
      */
     Collection getFiles() throws IOException;
+
+    /**
+     * @return encoding
+     */
+    String getEncoding();
 }

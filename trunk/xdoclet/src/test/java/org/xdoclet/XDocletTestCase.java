@@ -37,6 +37,10 @@ public class XDocletTestCase extends TestCase {
             result.add(three);
             return result;
         }
+
+        public String getEncoding() {
+            return null;
+        }
     }
 
     protected XDoclet createGeneramaWithThreeMetadataObjects() throws IOException {
