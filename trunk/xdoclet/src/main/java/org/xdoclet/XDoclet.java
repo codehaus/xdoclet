@@ -5,7 +5,7 @@ import org.picocontainer.MutablePicoContainer;
 
 /**
  * This class installs the core XDoclet components in a <a href="http://www.picocontainer.org/">PicoContainer</a>.
- * (It relies on the superclass to install the rest).
+ * (It relies on the superclass to composeContainer the rest).
  *
  * @author Aslak Helles&oslash;y
  * @version $Revision$
@@ -18,8 +18,8 @@ public class XDoclet extends Generama {
         this.javaSourceProviderClass = fileProviderClass;
     }
 
-    public void install(MutablePicoContainer pico) {
-        super.install(pico);
-        pico.registerComponentImplementation(JavaSourceProvider.class, javaSourceProviderClass);
+    public void composeContainer(MutablePicoContainer pico, Object scope) {
+        super.composeContainer(pico, scope);
+        pico.registerComponentImplementation(javaSourceProviderClass);
     }
 }
