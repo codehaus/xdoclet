@@ -19,7 +19,8 @@
     <package>xdoclet</package>
     <logo>http://sourceforge.net/sflogo.php?group_id=31602&amp;type=2</logo>
     <description>
-        XDoclet is a code generation engine based on meta data specified in javadoc tags.
+        XDoclet is a code generation engine based on meta data specified in javadoc tags. This documentation is for XDoclet2,
+        which is a rewrite of <a href="http://xdoclet.sf.net">XDoclet 1.2.x</a>.
     </description>
     <shortDescription>XDoclet: Attribute-Oriented Programming</shortDescription>
 
