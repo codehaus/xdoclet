@@ -5,3 +5,4 @@ junit*.properties
 *.ipr
 *.iws
 *.iml
+.clover
