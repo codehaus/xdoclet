@@ -49,6 +49,9 @@ public class QDoxMetadataProvider implements MetadataProvider {
      * is a directory, all sources in it will be parsed. 
      */
     public QDoxMetadataProvider(final File singleSourceOrDirectory) {
+        if(!singleSourceOrDirectory.exists()) {
+            throw new IllegalArgumentException(singleSourceOrDirectory.getAbsolutePath() + " doesn't exist! No Java sources to parse.");
+        }
         this.singleSourceOrDirectory = singleSourceOrDirectory;
     }
 
