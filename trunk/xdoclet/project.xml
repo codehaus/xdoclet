@@ -8,7 +8,7 @@
 <project>
     <pomVersion>3</pomVersion>
     <id>xdoclet</id>
-    <currentVersion>2.0-alpha-1-SNAPSHOT</currentVersion>
+    <currentVersion>2.0</currentVersion>
     <name>XDoclet</name>
     <organization>
         <name>XDoclet Team</name>
@@ -65,32 +65,32 @@
         <dependency>
             <id>generama</id>
             <version>1.0</version>
-            <url>http://xdoclet.codehaus.org/generama/</url>
+            <url>http://generama.codehaus.org//</url>
         </dependency>
 
         <dependency>
             <id>qdox</id>
-            <version>1.5-SNAPSHOT</version>
+            <version>1.5</version>
             <url>http://qdox.codehaus.org/</url>
         </dependency>
 
         <dependency>
             <id>picocontainer</id>
-            <version>1.0-RC-1-SNAPSHOT</version>
+            <version>1.0</version>
             <url>http://www.picocontainer.org/</url>
         </dependency>
 
         <dependency>
             <groupId>nanocontainer</groupId>
             <artifactId>nanocontainer-ant</artifactId>
-            <version>1.0-beta-1-SNAPSHOT</version>
+            <version>1.0-beta-1</version>
             <url></url>
         </dependency>
 
         <dependency>
             <groupId>nanocontainer</groupId>
             <artifactId>nanocontainer</artifactId>
-            <version>1.0-beta-1-SNAPSHOT</version>
+            <version>1.0-beta-1</version>
             <url></url>
         </dependency>
 
@@ -236,13 +236,8 @@
 
     <reports>
         <report>maven-javadoc-plugin</report>
-        <report>maven-faq-plugin</report>
-        <report>maven-changes-plugin</report>
-        <!--report>maven-statcvs-plugin</report-->
         <report>maven-license-plugin</report>
         <report>maven-simian-plugin</report>
-        <report>maven-jxr-plugin</report>
-        <report>maven-junit-report-plugin</report>
         <report>maven-clover-plugin</report>
     </reports>
 
