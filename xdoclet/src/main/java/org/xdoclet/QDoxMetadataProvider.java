@@ -1,6 +1,7 @@
 package org.xdoclet;
 
 import org.generama.MetadataProvider;
+import org.picocontainer.lifecycle.Startable;
 
 import java.util.Collection;
 import java.util.Arrays;
@@ -12,14 +13,12 @@ import java.io.*;
 import com.thoughtworks.qdox.JavaDocBuilder;
 import com.thoughtworks.qdox.model.JavaClass;
 
-import org.picocontainer.lifecycle.Stoppable;
-
 /**
  * This MetadataProvider provides QDox {@link JavaClass} objects.
  * @author Aslak Helles&oslash;y
  * @version $Revision$
  */
-public class QDoxMetadataProvider implements MetadataProvider, Stoppable {
+public class QDoxMetadataProvider implements MetadataProvider, Startable {
     private final ConfigurableDocletTagFactory docletTagFactory = new ConfigurableDocletTagFactory();
 
     private JavaSourceProvider fileProvider;
@@ -118,6 +117,9 @@ public class QDoxMetadataProvider implements MetadataProvider, Stoppable {
         } else {
             return "";
         }
+    }
+
+    public void start() {
     }
 
 	public void stop() {
