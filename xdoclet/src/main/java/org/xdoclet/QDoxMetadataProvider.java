@@ -12,12 +12,14 @@ import java.io.*;
 import com.thoughtworks.qdox.JavaDocBuilder;
 import com.thoughtworks.qdox.model.JavaClass;
 
+import org.picocontainer.lifecycle.Stoppable;
+
 /**
  * This MetadataProvider provides QDox {@link JavaClass} objects.
  * @author Aslak Helles&oslash;y
  * @version $Revision$
  */
-public class QDoxMetadataProvider implements MetadataProvider {
+public class QDoxMetadataProvider implements MetadataProvider, Stoppable {
     private final ConfigurableDocletTagFactory docletTagFactory = new ConfigurableDocletTagFactory();
 
     private JavaSourceProvider fileProvider;
@@ -35,7 +37,7 @@ public class QDoxMetadataProvider implements MetadataProvider {
      */
     public QDoxMetadataProvider(final Reader singleSource) {
         this(new JavaSourceProvider() {
-            public Collection getFiles() throws IOException {
+            public Collection getFiles() {
                 return Collections.singleton(singleSource);
             }
 
@@ -47,7 +49,7 @@ public class QDoxMetadataProvider implements MetadataProvider {
 
     /**
      * Convenience constructor for testing. If singleSourceOrDirectory
-     * is a directory, all sources in it will be parsed. 
+     * is a directory, all sources in it will be parsed.
      */
     public QDoxMetadataProvider(final File singleSourceOrDirectory) {
         if(!singleSourceOrDirectory.exists()) {
@@ -63,21 +65,25 @@ public class QDoxMetadataProvider implements MetadataProvider {
     /**
      * @return a sorted Collection of {@link JavaClass}.
      */
-    public Collection getMetadata() throws IOException {
-        JavaDocBuilder builder = new JavaDocBuilder(docletTagFactory);
-        if (fileProvider != null) {
-            builder.setEncoding(fileProvider.getEncoding());
-            addSourcesFromJavaSourceProvider(builder);
-        } else {
-            if (singleSourceOrDirectory.isDirectory()) {
-                builder.addSourceTree(singleSourceOrDirectory);
+    public Collection getMetadata() {
+        try {
+            JavaDocBuilder builder = new JavaDocBuilder(docletTagFactory);
+            if (fileProvider != null) {
+                builder.setEncoding(fileProvider.getEncoding());
+                addSourcesFromJavaSourceProvider(builder);
             } else {
-                builder.addSource(singleSourceOrDirectory);
+                if (singleSourceOrDirectory.isDirectory()) {
+                    builder.addSourceTree(singleSourceOrDirectory);
+                } else {
+                    builder.addSource(singleSourceOrDirectory);
+                }
             }
+            List result = Arrays.asList(builder.getClasses());
+            Collections.sort(result);
+            return result;
+        } catch (IOException e) {
+            throw new RuntimeException("Couldn't parse Java Sources", e);
         }
-        List result = Arrays.asList(builder.getClasses());
-        Collections.sort(result);
-        return result;
     }
 
     private void addSourcesFromJavaSourceProvider(JavaDocBuilder builder) throws IOException {
@@ -113,4 +119,8 @@ public class QDoxMetadataProvider implements MetadataProvider {
             return "";
         }
     }
+
+	public void stop() {
+		docletTagFactory.printUnknownTags();
+	}
 }

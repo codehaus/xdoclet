@@ -49,7 +49,7 @@ public class XDocletTestCase extends TestCase {
     public void testTagRegistration() throws IOException {
         XDoclet xDoclet = createGeneramaWithThreeMetadataObjects();
         MutablePicoContainer pico = new DefaultPicoContainer();
-        xDoclet.install(pico);
+        xDoclet.composeContainer(pico, null);
 
         QDoxMetadataProvider mp = (QDoxMetadataProvider) pico.getComponentInstanceOfType(MetadataProvider.class);
         assertNotNull(mp);

@@ -76,15 +76,27 @@
 
         <dependency>
             <id>picocontainer</id>
-            <version>1.0-beta-4-SNAPSHOT</version>
-            <url>http://picocontainer.codehaus.org/</url>
+            <version>1.0-beta-5-SNAPSHOT</version>
+            <url>http://www.picocontainer.org/</url>
         </dependency>
 
         <dependency>
             <groupId>picocontainer</groupId>
             <artifactId>picoextras-ant</artifactId>
             <version>1.0-alpha-1-SNAPSHOT</version>
-            <url>http://nanocontainer.codehaus.org/ant/</url>
+            <url>http://www.picocontainer.codehaus.org/picoextras/ant/</url>
+        </dependency>
+
+        <dependency>
+            <groupId>picocontainer</groupId>
+            <artifactId>picoextras-integrationkit</artifactId>
+            <version>1.0-alpha-1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>picocontainer</groupId>
+            <artifactId>picoextras-reflection</artifactId>
+            <version>1.0-alpha-1-SNAPSHOT</version>
         </dependency>
 
         <dependency>

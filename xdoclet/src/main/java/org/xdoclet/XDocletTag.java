@@ -1,5 +1,6 @@
 package org.xdoclet;
 
+import com.thoughtworks.qdox.model.DocletTag;
 import com.thoughtworks.qdox.model.DefaultDocletTag;
 import com.thoughtworks.qdox.model.AbstractJavaEntity;
 import com.thoughtworks.qdox.model.JavaMethod;
@@ -43,22 +44,22 @@ public abstract class XDocletTag extends DefaultDocletTag {
     protected abstract void validateLocation();
 
     public final void bomb(String message) {
-        throw new RuntimeException("@" + getName() + " in " + getLocation() + " (line " + getLineNumber() + "): " + message);
+        throw new RuntimeException("@" + getName() + " in " + getLocation(this) + " (line " + getLineNumber() + "): " + message);
     }
 
-    private String getLocation() {
+    static String getLocation(DocletTag tag) {
         String location = null;
-        File sourceFile = getContext().getSource().getFile();
+        File sourceFile = tag.getContext().getSource().getFile();
         if (sourceFile != null) {
             location = sourceFile.getAbsolutePath();
         } else {
             // dunno what file it is (might be from a reader).
             JavaClass clazz;
-            if (getContext() instanceof JavaClass) {
+            if (tag.getContext() instanceof JavaClass) {
                 // it's on a class (outer class)
-                clazz = (JavaClass) getContext();
+                clazz = (JavaClass) tag.getContext();
             } else {
-                clazz = (JavaClass) getContext().getParent();
+                clazz = (JavaClass) tag.getContext().getParent();
             }
             location = clazz.getFullyQualifiedName();
         }

@@ -99,10 +99,10 @@ public class ConfigurableDocletTagFactory implements DocletTagFactory {
         return unknownTags;
     }
 
-    public void printUnknownTags(boolean fail) {
+    public void printUnknownTags() {
         for (Iterator iterator = unknownTags.iterator(); iterator.hasNext();) {
             DocletTag docletTag = (DocletTag) iterator.next();
-            System.out.println(docletTag);
+            System.out.println("Unknown tag: @" + docletTag.getName() + " in " + XDocletTag.getLocation(docletTag) + " (line " + docletTag.getLineNumber() + ")");
         }
     }
 }
