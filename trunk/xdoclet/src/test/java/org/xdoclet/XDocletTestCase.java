@@ -20,7 +20,7 @@ import java.util.List;
 public class XDocletTestCase extends TestCase {
 
     public static class TestJavaSourceProvider implements JavaSourceProvider {
-        public Collection getFiles() {
+        public Collection getURLs() {
             Reader one = new StringReader("" +
                     "public class One{}"
             );

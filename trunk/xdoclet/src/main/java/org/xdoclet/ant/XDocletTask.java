@@ -19,7 +19,7 @@ public class XDocletTask extends AbstractGeneramaTask {
     private String encoding = System.getProperty("file.encoding");
 
     protected Generama createGenerama() {
-        return new XDoclet(AntFileProvider.class, FileWriterMapper.class) {
+        return new XDoclet(AntSourceProvider.class, FileWriterMapper.class) {
             public void composeContainer(MutablePicoContainer pico, Object scope) {
                 super.composeContainer(pico, scope);
                 pico.registerComponentInstance(filesets);
