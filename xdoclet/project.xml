@@ -48,6 +48,12 @@
         </developer>
     </developers>
 
+    <contributors>
+        <contributor>
+            <name>Takashi Okamoto</name>
+        </contributor>
+    </contributors>
+
     <dependencies>
 
         <dependency>

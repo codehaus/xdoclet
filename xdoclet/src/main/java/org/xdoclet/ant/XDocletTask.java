@@ -17,6 +17,7 @@ import java.io.IOException;
  */
 public class XDocletTask extends AbstractGeneramaTask {
     private Collection filesets = new ArrayList();
+    private String encoding = System.getProperty("file.encoding");
 
     protected Generama createGenerama() throws IOException {
         return new XDoclet(AntFileProvider.class, FileWriterMapper.class) {
@@ -24,6 +25,7 @@ public class XDocletTask extends AbstractGeneramaTask {
                 super.install(pico);
                 pico.registerComponentInstance(filesets);
                 pico.registerComponentInstance(getProject());
+                pico.registerComponentInstance(encoding);
             }
         };
     }
@@ -32,20 +34,7 @@ public class XDocletTask extends AbstractGeneramaTask {
         filesets.add(fileSet);
     }
 
-//    public static class Tag {
-//        public String name;
-//        public Class clazz;
-//
-//        public void setName(String name) {
-//            this.name = name;
-//        }
-//    }
-//    private Collection addedTags = new ArrayList();
-//
-//    public Tag createTag() {
-//        Tag tag = new Tag();
-//        addedTags.add(tag);
-//        return tag;
-//    }
-
+    public void setEncoding(String encoding) {
+        this.encoding = encoding;
+    }
 }
