@@ -34,4 +34,36 @@ public abstract class XDocletTag extends DefaultDocletTag {
     public final void bomb(String message) {
         throw new RuntimeException("@" + getName() + " " + getValue() + "\n in " + getLocation(this) + " (line " + getLineNumber() + "):\n" + message);
     }
+
+    public boolean isOnConstructor() {
+        return isOnConstructor;
+    }
+
+    public void setOnConstructor(boolean onConstructor) {
+        isOnConstructor = onConstructor;
+    }
+
+    public boolean isOnMethod() {
+        return isOnMethod;
+    }
+
+    public void setOnMethod(boolean onMethod) {
+        isOnMethod = onMethod;
+    }
+
+    public boolean isOnField() {
+        return isOnField;
+    }
+
+    public void setOnField(boolean onField) {
+        isOnField = onField;
+    }
+
+    public boolean isOnClass() {
+        return isOnClass;
+    }
+
+    public void setOnClass(boolean onClass) {
+        isOnClass = onClass;
+    }
 }
