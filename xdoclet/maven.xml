@@ -2,8 +2,7 @@
          xmlns:j="jelly:core"
          xmlns:maven="jelly:maven">
 
-
-  <goal name="alljar">
+  <goal name="alljar" prereqs="java:compile">
     <mkdir dir="${maven.build.dir}/alljar"/>
   
     <j:forEach var="lib" items="${pom.artifacts}">
@@ -11,6 +10,10 @@
         dest="${maven.build.dir}/alljar"
         src="${lib.path}"/>
     </j:forEach>
+    
+    <copy todir="${maven.build.dir}/alljar">
+      <fileset dir="${maven.build.dir}/classes"/>
+    </copy>
     
     <jar
       jarfile="${maven.build.dir}/${maven.final.name}-all.jar"
