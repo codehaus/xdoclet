@@ -1,4 +1,4 @@
-<project default="jar:install"
+<project default="jar:install-snapshot"
     xmlns:j="jelly:core"
     xmlns:maven="jelly:maven">
 
