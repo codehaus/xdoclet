@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.io.*;
 
 import com.thoughtworks.qdox.JavaDocBuilder;
@@ -60,7 +61,7 @@ public class QDoxMetadataProvider implements MetadataProvider {
     }
 
     /**
-     * @return a Collection of {@link JavaClass}.
+     * @return a sorted Collection of {@link JavaClass}.
      */
     public Collection getMetadata() throws IOException {
         JavaDocBuilder builder = new JavaDocBuilder(docletTagFactory);
@@ -74,7 +75,9 @@ public class QDoxMetadataProvider implements MetadataProvider {
                 builder.addSource(singleSourceOrDirectory);
             }
         }
-        return Arrays.asList(builder.getClasses());
+        List result = Arrays.asList(builder.getClasses());
+        Collections.sort(result);
+        return result;
     }
 
     private void addSourcesFromJavaSourceProvider(JavaDocBuilder builder) throws IOException {
