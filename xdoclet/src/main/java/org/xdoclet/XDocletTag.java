@@ -4,6 +4,12 @@ import com.thoughtworks.qdox.model.AbstractJavaEntity;
 import com.thoughtworks.qdox.model.DefaultDocletTag;
 import com.thoughtworks.qdox.model.JavaField;
 import com.thoughtworks.qdox.model.JavaMethod;
+import com.thoughtworks.qdox.model.JavaClass;
+import com.thoughtworks.qdox.model.DocletTag;
+
+import java.net.URL;
+
+import org.generama.*;
 
 /**
  * @author Aslak Helles&oslash;y
@@ -32,7 +38,7 @@ public abstract class XDocletTag extends DefaultDocletTag {
     protected abstract void validateLocation();
 
     public final void bomb(String message) {
-        throw new RuntimeException("@" + getName() + " " + getValue() + "\n in " + getLocation(this) + " (line " + getLineNumber() + "):\n" + message);
+        throw new RuntimeException("@" + getName() + " " + getValue() + "\n in " + org.generama.ConfigurableDocletTagFactory.getLocation(this) + " (line " + getLineNumber() + "):\n" + message);
     }
 
     public boolean isOnConstructor() {
