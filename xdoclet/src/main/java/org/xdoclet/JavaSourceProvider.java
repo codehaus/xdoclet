@@ -9,7 +9,7 @@ import java.io.IOException;
  */
 public interface JavaSourceProvider {
     /**
-     * @return a Collection of {@link java.io.File} or {@link java.io.Reader}.
+     * @return a Collection of {@link java.net.URL} pointing to Java sources
      */
     Collection getURLs() throws IOException;
 

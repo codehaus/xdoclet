@@ -3,6 +3,7 @@ package org.xdoclet;
 import com.thoughtworks.qdox.model.DefaultDocletTag;
 import com.thoughtworks.qdox.model.DocletTag;
 import com.thoughtworks.qdox.model.DocletTagFactory;
+import com.thoughtworks.qdox.model.AbstractJavaEntity;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -50,7 +51,7 @@ public class ConfigurableDocletTagFactory implements DocletTagFactory {
         throw new UnsupportedOperationException();
     }
 
-    public DocletTag createDocletTag(String tag, String text, int lineNumber) {
+    public DocletTag createDocletTag(String tag, String text, AbstractJavaEntity context, int lineNumber) {
         Class tagClass = (Class) registeredTags.get(tag);
 
         boolean isKnown = true;
@@ -59,8 +60,8 @@ public class ConfigurableDocletTagFactory implements DocletTagFactory {
             isKnown = false;
         }
         try {
-            Constructor newTag = tagClass.getConstructor(new Class[] {String.class, String.class, Integer.TYPE});
-            DocletTag result = (DocletTag) newTag.newInstance(new Object[]{tag, text, new Integer(lineNumber)});
+            Constructor newTag = tagClass.getConstructor(new Class[] {String.class, String.class, AbstractJavaEntity.class, Integer.TYPE});
+            DocletTag result = (DocletTag) newTag.newInstance(new Object[]{tag, text, context, new Integer(lineNumber)});
 
             if (!isKnown) {
                 unknownTags.add(result);
@@ -69,7 +70,7 @@ public class ConfigurableDocletTagFactory implements DocletTagFactory {
         } catch (ClassCastException e) {
             throw new RuntimeException(e);
         } catch (NoSuchMethodException e) {
-            throw new RuntimeException("No (String, String) constructor in " + tagClass.getName());
+            throw new RuntimeException("No (String, String, AbstractJavaEntity, int) constructor in " + tagClass.getName());
         } catch (SecurityException e) {
             throw new RuntimeException(e);
         } catch (InstantiationException e) {
