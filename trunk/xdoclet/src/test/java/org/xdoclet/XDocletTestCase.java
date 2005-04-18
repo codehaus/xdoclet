@@ -50,6 +50,7 @@ public class XDocletTestCase extends TestCase {
         XDoclet xDoclet = createGeneramaWithThreeMetadataObjects();
         MutablePicoContainer pico = new DefaultPicoContainer();
         xDoclet.composeContainer(pico, null);
+        pico.registerComponentInstance(Boolean.TRUE);
 
         QDoxMetadataProvider mp = (QDoxMetadataProvider) pico.getComponentInstanceOfType(MetadataProvider.class);
         assertNotNull(mp);
