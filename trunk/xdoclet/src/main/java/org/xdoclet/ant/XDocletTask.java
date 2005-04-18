@@ -17,6 +17,7 @@ import java.util.Collection;
 public class XDocletTask extends AbstractGeneramaTask {
     private Collection filesets = new ArrayList();
     private String encoding = System.getProperty("file.encoding");
+    private Boolean verbose = Boolean.TRUE;
 
     protected Generama createGenerama() {
         return new XDoclet(AntSourceProvider.class, FileWriterMapper.class) {
@@ -25,6 +26,7 @@ public class XDocletTask extends AbstractGeneramaTask {
                 pico.registerComponentInstance(filesets);
                 pico.registerComponentInstance(getProject());
                 pico.registerComponentInstance(encoding);
+                pico.registerComponentInstance(verbose);
             }
         };
     }
@@ -35,5 +37,9 @@ public class XDocletTask extends AbstractGeneramaTask {
 
     public void setEncoding(String encoding) {
         this.encoding = encoding;
+    }
+
+    public void setVerbose(Boolean verbose) {
+        this.verbose = verbose;
     }
 }
