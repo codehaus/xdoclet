@@ -25,18 +25,26 @@ public class QDoxMetadataProvider implements QDoxCapableMetadataProvider, Starta
 
     private JavaSourceProvider urlProvider;
     private File singleSourceOrDirectory;
+    private Boolean verbose;
 
     /**
      * Main constructor. Gives fine control over what sources to parse.
      */
-    public QDoxMetadataProvider(JavaSourceProvider fileProvider) {
+    public QDoxMetadataProvider(JavaSourceProvider fileProvider, Boolean verbose) {
         this.urlProvider = fileProvider;
+        this.verbose = verbose;
     }
-
+    /**
+    * be verbose by default
+    */
+    public QDoxMetadataProvider(JavaSourceProvider fileProvider) {
+        this(fileProvider,Boolean.TRUE);
+    }
+    
     /**
      * Convenience constructor for testing.
      */
-    public QDoxMetadataProvider(final URL singleSource) {
+    public QDoxMetadataProvider(final URL singleSource,Boolean verbose) {
         this(new JavaSourceProvider() {
             public Collection getURLs() {
                 return Collections.singleton(singleSource);
@@ -45,9 +53,14 @@ public class QDoxMetadataProvider implements QDoxCapableMetadataProvider, Starta
             public String getEncoding() {
                 return "ISO-8859-1";
             }
-        });
+        }, verbose);
     }
-
+    /**
+    * be werbose by default. 
+    */
+    public QDoxMetadataProvider(final URL singleSource) {
+        this(singleSource,Boolean.TRUE);
+    }
     /**
      * Convenience constructor for testing. If singleSourceOrDirectory
      * is a directory, all sources in it will be parsed.
@@ -119,6 +132,8 @@ public class QDoxMetadataProvider implements QDoxCapableMetadataProvider, Starta
     }
 
 	public void stop() {
-		docletTagFactory.printUnknownTags();
+        if (verbose.booleanValue()) {
+		    docletTagFactory.printUnknownTags();
+        }
 	}
 }
