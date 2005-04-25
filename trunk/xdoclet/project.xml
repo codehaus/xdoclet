@@ -8,7 +8,7 @@
 <project>
     <pomVersion>3</pomVersion>
     <id>xdoclet</id>
-    <currentVersion>2.0.1</currentVersion>
+    <currentVersion>2.0.2</currentVersion>
     <name>XDoclet</name>
     <organization>
         <name>XDoclet Team</name>
@@ -58,13 +58,16 @@
         <contributor>
             <name>Takashi Okamoto</name>
         </contributor>
+        <contributor>
+            <name>Anatol Pomozov</name>
+        </contributor>
     </contributors>
 
     <dependencies>
 
         <dependency>
             <id>generama</id>
-            <version>SNAPSHOT</version>
+            <version>1.1</version>
             <url>http://generama.codehaus.org//</url>
         </dependency>
 
@@ -173,10 +176,6 @@
         </dependency>
 
     </dependencies>
-
-    <contributors>
-    </contributors>
-
     <mailingLists>
         <mailingList>
             <name>XDoclet 2 and Generama List</name>
