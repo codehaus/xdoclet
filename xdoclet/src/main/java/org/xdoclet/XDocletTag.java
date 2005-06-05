@@ -4,12 +4,6 @@ import com.thoughtworks.qdox.model.AbstractJavaEntity;
 import com.thoughtworks.qdox.model.DefaultDocletTag;
 import com.thoughtworks.qdox.model.JavaField;
 import com.thoughtworks.qdox.model.JavaMethod;
-import com.thoughtworks.qdox.model.JavaClass;
-import com.thoughtworks.qdox.model.DocletTag;
-
-import java.net.URL;
-
-import org.generama.*;
 
 /**
  * @author Aslak Helles&oslash;y
