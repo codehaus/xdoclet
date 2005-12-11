@@ -8,7 +8,7 @@
 <project>
     <pomVersion>3</pomVersion>
     <id>xdoclet</id>
-    <currentVersion>2.0.3</currentVersion>
+    <currentVersion>2.0.4</currentVersion>
     <name>XDoclet</name>
     <organization>
         <name>XDoclet Team</name>
@@ -70,14 +70,14 @@
 
         <dependency>
             <id>generama</id>
-            <version>1.2</version>
+            <version>1.2.1</version>
             <url>http://generama.codehaus.org//</url>
         </dependency>
 
         <dependency>
-            <groupId>qdox</groupId>
+            <groupId>generama</groupId>
             <artifactId>qdox</artifactId>
-            <version>1.6-SNAPSHOT</version>
+            <version>20051211.114207</version>
         </dependency>
 
         <dependency>
@@ -89,14 +89,14 @@
         <dependency>
             <groupId>nanocontainer</groupId>
             <artifactId>nanocontainer-ant</artifactId>
-            <version>1.0-beta-1</version>
+            <version>1.0-beta-3</version>
             <url></url>
         </dependency>
 
         <dependency>
             <groupId>nanocontainer</groupId>
             <artifactId>nanocontainer</artifactId>
-            <version>1.0-beta-1</version>
+            <version>1.0-RC-3</version>
             <url></url>
         </dependency>
 
@@ -132,7 +132,7 @@
 
         <dependency>
             <id>commons-jelly</id>
-            <version>1.0-RC2-SNAPSHOT</version>
+            <version>1.0</version>
             <url>http://jakarta.apache.org/jelly/</url>
         </dependency>
 
@@ -159,14 +159,7 @@
             <version>1.0</version>
             <url></url>
         </dependency>
-
-        <!--dependency>
-            <id>qdox-attributes</id>
-            <version>0.7-SNAPSHOT</version>
-            <url></url>
-        </dependency-->
-
-        <dependency>
+       <dependency>
             <id>antlr</id>
             <version>2.7.2</version>
             <url>http://www.antlr.org/</url>
