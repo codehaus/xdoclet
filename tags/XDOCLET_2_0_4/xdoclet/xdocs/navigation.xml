@@ -1,0 +1,49 @@
+<?xml version="1.0"  encoding="ISO-8859-1"?>
+
+<!DOCTYPE project [
+    <!ENTITY amp "&#233;">
+]>
+
+<project name="xdoclet" repository="xdoclet" href="http://xdoclet.codehaus.org">
+
+  <title>XDoclet</title>
+
+  <body>
+    <links>
+      <item name="JavaDoc API"           href="/apidocs/index.html"/>
+      <item name="Wiki"                  href="http://wiki.codehaus.org/picocontainer/XDoclet"/>
+      <item name="Download"              href="/download.html"/>
+      <item name="Issue Tracker"         href="http://jira.codehaus.org/secure/BrowseProject.jspa?id=10250"/>
+      <item name="Plugins"               href="http://sf.net/projects/xdoclet-plugins/"/>
+      <item name="Generama"              href="http://xdoclet.codehaus.org/generama/"/>
+    </links>
+
+    <!--menu name="XDoclet">
+      <item name="JavaDoc API"           href="/apidocs/index.html"/>
+      <item name="Introduction"          href="/introduction.html"/>
+      <item name="FAQ"                   href="/faq.html"/>
+      <item name="Inversion of Control"  href="/ioc.html"/>
+      <item name="Configuration"         href="/configuration.html"/>
+      <item name="Lifecycle"             href="/lifecycle.html"/>
+      <item name="Components"            href="/components.html"/>
+      <item name="Good Citizens"         href="/good-citizens.html"/>
+      <item name="Component Adapters"    href="/component-adapters.html"/>
+      <item name="Component Multicaster" href="/compositecomponents.html"/>
+      <item name="Differentiators"       href="/differentiators.html"/>
+      <item name="License"               href="/license.html"/>
+      <item name="Extras"                href="/extras.html"/>
+      <item name="Nirvana"               href="/nirvana.html"/>
+      <item name="Volunteers"            href="/volunteers.html"/>
+      <item name="Propaganda"            href="/propaganda.html"/>
+      <item name="Related Projects"      href="/related-projects.html"/>
+      <item name="People"                href="/people.html"/>
+      <item name="Blogs"                 href="/blogs.html"/>
+      <item name="Picosaurus"            href="/picosaurus.html"/>
+      <item name="Download"              href="/download.html"/>
+    </menu-->
+    
+    <!-- Google Search -->
+    <search/>
+  </body>
+
+</project>
