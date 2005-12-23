@@ -3,11 +3,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>maven2-xdoclet2-plugin</artifactId>
-    <groupId>org.codehaus.xdoclet</groupId>
+    <!--<groupId>org.codehaus.xdoclet</groupId>-->
+    <groupId>xdoclet</groupId>
     <packaging>maven-plugin</packaging>
     <name>Maven2 XDoclet2 Plugin</name>
     <version>2.0.5-SNAPSHOT</version>
     <inceptionYear>2005</inceptionYear>
+    <build>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ssh-external</artifactId>
+                <version>1.0-alpha-5</version>
+            </extension>
+        </extensions>
+    </build>
     <dependencies>
         <dependency>
             <!--<groupId>org.codehaus.xdoclet</groupId>-->
@@ -61,16 +71,6 @@
             <artifactId>maven-project</artifactId>
             <version>2.0</version>
         </dependency>
-        <!--<dependency>-->
-        <!--<groupId>org.codehaus.plexus</groupId>-->
-        <!--<artifactId>plexus-utils</artifactId>-->
-        <!--<version>1.0.4</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--<groupId>ant</groupId>-->
-        <!--<artifactId>ant</artifactId>-->
-        <!--<version>1.6.5</version>-->
-        <!--</dependency>-->
     </dependencies>
 
     <repositories>
@@ -79,10 +79,19 @@
             <layout>legacy</layout>
             <url>http://dist.codehaus.org</url>
         </repository>
-        <repository>
-            <id>local_maven1</id>
-            <layout>legacy</layout>
-            <url>file:///Users/greg/.maven/repository</url>
-        </repository>
     </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>codehaus</id>
+            <name>beaver.codehaus.org</name>
+            <url>scpexe://beaver.codehaus.org:/dist/</url>
+        </repository>
+        <site>
+            <id>codehaus</id>
+            <name>codehaus</name>
+            <url>scp://beaver.codehaus.org/home/projects/xdoclet/public_html/maven</url>
+        </site>
+    </distributionManagement>
+
 </project>

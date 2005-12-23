@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE project [
-        <!ENTITY Ouml   "&#214;">
-        <!ENTITY oslash "&#248;">
-        ]>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project [
+    <!ENTITY Ouml   "&#214;">
+    <!ENTITY oslash "&#248;">
+]>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -19,37 +20,6 @@
     <issueManagement>
         <url>http://jira.codehaus.org/browse/XDOCLET</url>
     </issueManagement>
-    <ciManagement>
-        <notifiers>
-            <notifier>
-                <address>xdoclet-devel@lists.sourceforge.net</address>
-            </notifier>
-        </notifiers>
-    </ciManagement>
-    <distributionManagement>
-        <repository>
-            <id>codehaus</id>
-            <name>beaver.codehaus.org</name>
-            <url>scpexe://beaver.codehaus.org:/dist/</url>
-        </repository>
-        <site>
-            <id>codehaus</id>
-            <name>codehaus</name>
-            <url>scp://beaver.codehaus.org/home/projects/xdoclet/public_html/maven</url>
-        </site>
-    </distributionManagement>
-    <repositories>
-        <repository>
-            <id>dist.codehaus.org</id>
-            <layout>legacy</layout>
-            <url>http://dist.codehaus.org</url>
-        </repository>
-        <!--<repository>-->
-        <!--<id>local_m1</id>-->
-        <!--<layout>legacy</layout>-->
-        <!--<url>file:///Users/greg/.maven/repository</url>-->
-        <!--</repository>-->
-    </repositories>
     <developers>
         <developer>
             <id>rinkrank</id>
@@ -156,13 +126,12 @@
             </plugin>
         </plugins>
         <extensions>
-                  <extension>
-                      <groupId>org.apache.maven.wagon</groupId>
-                      <artifactId>wagon-ssh-external</artifactId>
-                      <version>1.0-alpha-5</version>
-                  </extension>
-              </extensions>
-        
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ssh-external</artifactId>
+                <version>1.0-alpha-5</version>
+            </extension>
+        </extensions>
     </build>
     <dependencies>
         <dependency>
@@ -251,4 +220,30 @@
             <version>3.8.1</version>
         </dependency>
     </dependencies>
+    <repositories>
+        <repository>
+            <id>dist.codehaus.org</id>
+            <layout>legacy</layout>
+            <url>http://dist.codehaus.org</url>
+        </repository>
+    </repositories>
+    <ciManagement>
+        <notifiers>
+            <notifier>
+                <address>xdoclet-devel@lists.sourceforge.net</address>
+            </notifier>
+        </notifiers>
+    </ciManagement>
+    <distributionManagement>
+        <repository>
+            <id>codehaus</id>
+            <name>beaver.codehaus.org</name>
+            <url>scpexe://beaver.codehaus.org:/dist/</url>
+        </repository>
+        <site>
+            <id>codehaus</id>
+            <name>codehaus</name>
+            <url>scp://beaver.codehaus.org/home/projects/xdoclet/public_html/maven</url>
+        </site>
+    </distributionManagement>
 </project>
