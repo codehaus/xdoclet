@@ -25,11 +25,11 @@ import org.xdoclet.XDoclet;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.UndeclaredThrowableException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
 
 /**
  * @author Espen Amble Kolstad
@@ -87,7 +87,8 @@ public class XDocletMojo extends AbstractMojo {
             final Config config = (Config) it.next();
             getLog().info(config.toString());
             if (getSourceRoot() != null) {
-                final ContainerComposer containerComposer = new PluginContainerComposer(createGenerama(config), config, defaultPluginProps);
+                final Generama generama = createGenerama(config);
+                final ContainerComposer containerComposer = new PluginContainerComposer(generama, config, defaultPluginProps);
                 final ContainerBuilder containerBuilder = new PluginLifecycleContainerBuilder(containerComposer);
                 try {
                     containerBuilder.buildContainer(containerRef, null, null, true);
@@ -99,7 +100,14 @@ public class XDocletMojo extends AbstractMojo {
                     }
                     throw new MojoExecutionException("Undeclared: ", ex);
                 } catch (RuntimeException e) {
-                    throw new MojoFailureException(e.getMessage());
+                    throw new MojoExecutionException("XDoclet plugin failed: " + e.getMessage(), e);
+                }
+                if (config.isAddToSources()) {
+                    String addedSourceRoot = resolveOutputDir(config, outputDir);
+                    if (project != null) {
+                        getLog().info("Adding " + addedSourceRoot + " to compiler path");
+                        project.addCompileSourceRoot(addedSourceRoot);
+                    }
                 }
             }
         }
@@ -108,6 +116,18 @@ public class XDocletMojo extends AbstractMojo {
         resource.setDirectory(outputDir);
         //resource.addInclude("* * / *.xml");
         project.addResource(resource);
+    }
+
+    private String resolveOutputDir(Config config, String defaultOuputPath) {
+        String out = defaultOuputPath;
+        Map params = config.getParams();
+        if (params != null) {
+            String destDir = (String) params.get("destdir");
+            if (destDir != null) {
+                out = destDir;
+            }
+        }
+        return out;
     }
 
     private File getSourceRoot() {
