@@ -18,6 +18,8 @@
             </extension>
         </extensions>
     </build>
+
+
     <dependencies>
         <dependency>
             <!--<groupId>org.codehaus.xdoclet</groupId>-->
@@ -38,6 +40,12 @@
                 <!--<artifactId>freemarker</artifactId>-->
                 <!--</exclusion>-->
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-jelly</groupId>
+            <artifactId>commons-jelly</artifactId>
+            <version>20050813.225330</version>
         </dependency>
 
         <dependency>
@@ -79,6 +87,11 @@
             <layout>legacy</layout>
             <url>http://dist.codehaus.org</url>
         </repository>
+        <repository>
+            <id>apache</id>
+            <layout>legacy</layout>
+            <url>http://cvs.apache.org/repository/</url>
+        </repository>
     </repositories>
 
     <distributionManagement>
@@ -93,5 +106,13 @@
             <url>scp://beaver.codehaus.org/home/projects/xdoclet/public_html/maven</url>
         </site>
     </distributionManagement>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-plugin-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </reporting>
 
 </project>

@@ -16,6 +16,7 @@ public class Config {
     private Set excludes = new HashSet();
     private String encoding = System.getProperty("file.encoding");
     private Map params = new HashMap();
+    private boolean addToSources = true;
 
     public String getPlugin() {
         return plugin;
@@ -57,12 +58,21 @@ public class Config {
         this.params = params;
     }
 
+    public boolean isAddToSources() {
+        return addToSources;
+    }
+
+    public void setAddToSources(boolean addToSources) {
+        this.addToSources = addToSources;
+    }
+
     public String toString() {
         return "Config{" +
                 "plugin='" + plugin + '\'' +
                 ", includes=" + includes +
                 ", excludes=" + excludes +
                 ", encoding='" + encoding + '\'' +
+                ", addToSources='" + addToSources + '\'' +
                 ", params=" + params +
                 '}';
     }
