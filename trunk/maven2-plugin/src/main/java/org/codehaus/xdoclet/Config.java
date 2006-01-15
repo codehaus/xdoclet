@@ -1,7 +1,6 @@
 package org.codehaus.xdoclet;
 
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,10 +11,10 @@ import java.util.Set;
  */
 public class Config {
     private String plugin;
-    private Set includes = new HashSet();
-    private Set excludes = new HashSet();
+    private Set includes = Collections.singleton("**/*");
+    private Set excludes = Collections.EMPTY_SET;
     private String encoding = System.getProperty("file.encoding");
-    private Map params = new HashMap();
+    private Map params = Collections.EMPTY_MAP;
     private boolean addToSources = true;
 
     public String getPlugin() {

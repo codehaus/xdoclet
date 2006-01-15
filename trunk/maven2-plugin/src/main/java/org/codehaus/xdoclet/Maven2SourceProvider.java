@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -18,31 +19,35 @@ import java.util.Set;
 public class Maven2SourceProvider implements JavaSourceProvider {
     private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
-    private String encoding;
-    private File baseDir;
-    private Set includes;
-    private Set excludes;
+    private final String encoding;
+    private final List compileSourceRoots;
+    private final Set includes;
+    private final Set excludes;
 
-    public Maven2SourceProvider(SourceSet sourceSet) {
-        encoding = sourceSet.getEncoding();
-        baseDir = sourceSet.getBaseDir();
-        includes = sourceSet.getIncludes();
-        excludes = sourceSet.getExcludes();
+    public Maven2SourceProvider(Config config, List compileSourceRoots) {
+        this.encoding = config.getEncoding();
+        this.compileSourceRoots = compileSourceRoots;
+        this.includes = config.getIncludes();
+        this.excludes = config.getExcludes();
     }
 
     public Collection getURLs() throws IOException {
-        final DirectoryScanner scanner = new DirectoryScanner();
-        scanner.setBasedir(baseDir);
-        scanner.setFollowSymlinks(true);
-        scanner.setExcludes(toStringArray(excludes));
-        scanner.setIncludes(toStringArray(includes));
-        scanner.addDefaultExcludes();
-        scanner.scan();
-        final String[] files = scanner.getIncludedFiles();
-        final List urls = new ArrayList(files.length);
-        for (int i = 0; i < files.length; i++) {
-            final File file = new File(baseDir, files[i]);
-            urls.add(file.toURL());
+        final List urls = new ArrayList();
+        final Iterator it = compileSourceRoots.iterator();
+        while (it.hasNext()) {
+            final String baseDir = (String) it.next();
+            final DirectoryScanner scanner = new DirectoryScanner();
+            scanner.setBasedir(baseDir);
+            scanner.setFollowSymlinks(true);
+            scanner.setExcludes(toStringArray(excludes));
+            scanner.setIncludes(toStringArray(includes));
+            scanner.addDefaultExcludes();
+            scanner.scan();
+            final String[] files = scanner.getIncludedFiles();
+            for (int i = 0; i < files.length; i++) {
+                final File file = new File(baseDir, files[i]);
+                urls.add(file.toURL());
+            }
         }
         return urls;
     }
