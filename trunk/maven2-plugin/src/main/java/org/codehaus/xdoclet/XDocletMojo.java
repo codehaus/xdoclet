@@ -49,6 +49,7 @@ public class XDocletMojo extends AbstractMojo {
      *
      * @parameter expression="${project}"
      * @required
+     * @readonly
      */
     private MavenProject project;
 
