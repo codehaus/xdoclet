@@ -2,17 +2,17 @@ package org.codehaus.xdoclet;
 
 import java.util.Collections;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author Espen Amble Kolstad
- *
+ * @author gjoseph
+ * 
  * @version $Revision$
  */
 public class Config {
     private String plugin;
-    private Set includes = Collections.singleton("**/*");
-    private Set excludes = Collections.EMPTY_SET;
+    private String includes = "**/*.java";
+    private String excludes = "";
     private String encoding = System.getProperty("file.encoding");
     private Map params = Collections.EMPTY_MAP;
     private boolean addToSources = true;
@@ -25,19 +25,19 @@ public class Config {
         this.plugin = plugin;
     }
 
-    public Set getIncludes() {
+    public String getIncludes() {
         return includes;
     }
 
-    public void setIncludes(Set includes) {
+    public void setIncludes(String includes) {
         this.includes = includes;
     }
 
-    public Set getExcludes() {
+    public String getExcludes() {
         return excludes;
     }
 
-    public void setExcludes(Set excludes) {
+    public void setExcludes(String excludes) {
         this.excludes = excludes;
     }
 

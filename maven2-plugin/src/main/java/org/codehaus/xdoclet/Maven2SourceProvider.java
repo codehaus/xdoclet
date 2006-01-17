@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Espen Amble Kolstad
+ * @author gjoseph
  *
  * @version $Revision$
  */
@@ -21,14 +21,14 @@ public class Maven2SourceProvider implements JavaSourceProvider {
 
     private final String encoding;
     private final List compileSourceRoots;
-    private final Set includes;
-    private final Set excludes;
+    private final String[] includes;
+    private final String[] excludes;
 
     public Maven2SourceProvider(Config config, List compileSourceRoots) {
         this.encoding = config.getEncoding();
         this.compileSourceRoots = compileSourceRoots;
-        this.includes = config.getIncludes();
-        this.excludes = config.getExcludes();
+        this.includes = toStringArray(config.getIncludes());
+        this.excludes = toStringArray(config.getExcludes());
     }
 
     public Collection getURLs() throws IOException {
@@ -39,8 +39,8 @@ public class Maven2SourceProvider implements JavaSourceProvider {
             final DirectoryScanner scanner = new DirectoryScanner();
             scanner.setBasedir(baseDir);
             scanner.setFollowSymlinks(true);
-            scanner.setExcludes(toStringArray(excludes));
-            scanner.setIncludes(toStringArray(includes));
+            scanner.setExcludes(excludes);
+            scanner.setIncludes(includes);
             scanner.addDefaultExcludes();
             scanner.scan();
             final String[] files = scanner.getIncludedFiles();
@@ -52,11 +52,11 @@ public class Maven2SourceProvider implements JavaSourceProvider {
         return urls;
     }
 
-    private String[] toStringArray(Set strings) {
-        if (strings == null || strings.isEmpty()) {
+    private String[] toStringArray(String commaSeparated) {
+        if (commaSeparated == null || commaSeparated.length() == 0) {
             return EMPTY_STRING_ARRAY;
         }
-        return (String[]) strings.toArray(new String[strings.size()]);
+        return commaSeparated.split(",", 0);
     }
 
     public String getEncoding() {
