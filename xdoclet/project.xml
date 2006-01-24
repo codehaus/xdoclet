@@ -72,7 +72,8 @@
     <dependencies>
 
         <dependency>
-            <id>generama</id>
+            <groupId>generama</groupId>
+            <artifactId>generama</artifactId>
             <version>1.2.2-SNAPSHOT</version>
             <url>http://generama.codehaus.org//</url>
         </dependency>
@@ -84,7 +85,8 @@
         </dependency>
 
         <dependency>
-            <id>picocontainer</id>
+            <groupId>picocontainer</groupId>
+            <artifactId>picocontainer</artifactId>
             <version>1.0</version>
             <url>http://www.picocontainer.org/</url>
         </dependency>
@@ -104,13 +106,15 @@
         </dependency>
 
         <dependency>
-            <id>velocity</id>
+            <groupId>velocity</groupId>
+            <artifactId>velocity</artifactId>
             <version>1.4</version>
             <url>http://jakarta.apache.org/velocity/</url>
         </dependency>
 
         <dependency>
-            <id>commons-collections</id>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
             <version>2.1</version>
             <url>http://jakarta.apache.org/</url>
         </dependency>
@@ -122,19 +126,22 @@
         </dependency>
 
         <dependency>
-            <id>commons-logging</id>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
             <version>1.0.3</version>
             <url>http://jakarta.apache.org/commons/logging/</url>
         </dependency>
 
         <dependency>
-            <id>commons-beanutils</id>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
             <version>1.6.1</version>
             <url>http://jakarta.apache.org/</url>
         </dependency>
 
         <dependency>
-            <id>commons-jelly</id>
+            <groupId>commons-jelly</groupId>
+            <artifactId>commons-jelly</artifactId>
             <version>1.0</version>
             <url>http://jakarta.apache.org/jelly/</url>
         </dependency>
@@ -145,31 +152,36 @@
         </dependency>
 
         <dependency>
-            <id>commons-jexl</id>
+            <groupId>commons-jexl</groupId>
+            <artifactId>commons-jexl</artifactId>
             <version>1.0-beta-2</version>
             <url>http://jakarta.apache.org/jexl/</url>
         </dependency>
 
         <dependency>
-            <id>ant</id>
+            <groupId>ant</groupId>
+            <artifactId>ant</artifactId>
             <version>1.5.3-1</version>
         </dependency>
 
         <!-- Build/Test time only -->
 
         <dependency>
-            <id>xmlunit</id>
+            <groupId>xmlunit</groupId>
+            <artifactId>xmlunit</artifactId>
             <version>1.0</version>
             <url></url>
         </dependency>
-       <dependency>
-            <id>antlr</id>
+        <dependency>
+            <groupId>antlr</groupId>
+            <artifactId>antlr</artifactId>
             <version>2.7.2</version>
             <url>http://www.antlr.org/</url>
         </dependency>
 
         <dependency>
-            <id>junit</id>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
             <version>3.8.1</version>
             <url></url>
         </dependency>
