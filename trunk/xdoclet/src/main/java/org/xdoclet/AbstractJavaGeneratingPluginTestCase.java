@@ -58,7 +58,7 @@ public abstract class AbstractJavaGeneratingPluginTestCase extends AbstractPlugi
         return new QDoxMetadataProvider(getTestSource());
     }
 
-    protected URL getTestSource() throws IOException {
+    protected URL getTestSource() {
         return null;
     }
 }
