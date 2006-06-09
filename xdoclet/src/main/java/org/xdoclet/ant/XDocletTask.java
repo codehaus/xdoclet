@@ -15,9 +15,9 @@ import java.util.Collection;
  * @version $Revision$
  */
 public class XDocletTask extends AbstractGeneramaTask {
-    private Collection filesets = new ArrayList();
-    private String encoding = System.getProperty("file.encoding");
-    private Boolean verbose = Boolean.TRUE;
+    Collection filesets = new ArrayList();
+    String encoding = System.getProperty("file.encoding");
+    Boolean verbose = Boolean.TRUE;
 
     protected Generama createGenerama() {
         return new XDoclet(AntSourceProvider.class, FileWriterMapper.class) {

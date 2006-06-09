@@ -66,4 +66,6 @@ public abstract class XDocletTag extends DefaultDocletTag {
     public void setOnClass(boolean onClass) {
         isOnClass = onClass;
     }
+    
+    public abstract void validateModel();
 }

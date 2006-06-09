@@ -42,7 +42,7 @@ public class XDocletTestCase extends TestCase {
         }
     }
 
-    protected XDoclet createGeneramaWithThreeMetadataObjects() throws IOException {
+    protected XDoclet createGeneramaWithThreeMetadataObjects() {
         return new XDoclet(TestJavaSourceProvider.class, SinkWriterMapper.class);
     }
 

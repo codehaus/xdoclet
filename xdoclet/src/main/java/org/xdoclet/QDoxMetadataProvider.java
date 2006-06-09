@@ -81,7 +81,8 @@ public class QDoxMetadataProvider implements QDoxCapableMetadataProvider, Starta
      */
     public Collection getMetadata() {
         try {
-            JavaDocBuilder builder = new JavaDocBuilder(docletTagFactory);
+            ModelCheckerTagFactory modelChecker = new ModelCheckerTagFactory(docletTagFactory);
+            JavaDocBuilder builder = new JavaDocBuilder(modelChecker);
             if (urlProvider != null) {
                 builder.setEncoding(urlProvider.getEncoding());
                 addSourcesFromJavaSourceProvider(builder);
@@ -92,6 +93,7 @@ public class QDoxMetadataProvider implements QDoxCapableMetadataProvider, Starta
                     builder.addSource(singleSourceOrDirectory);
                 }
             }
+            modelChecker.validateModel();
             List result = Arrays.asList(builder.getClasses());
             Collections.sort(result);
             return result;
@@ -123,9 +125,8 @@ public class QDoxMetadataProvider implements QDoxCapableMetadataProvider, Starta
         if (metadata instanceof JavaClass) {
             JavaClass javaClass = (JavaClass) metadata;
             return javaClass.getPackage();
-        } else {
-            return "";
         }
+		return "";
     }
 
     public void start() {
