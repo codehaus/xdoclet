@@ -236,9 +236,9 @@
     </ciManagement>
     <distributionManagement>
         <repository>
-            <id>codehaus</id>
-            <name>beaver.codehaus.org</name>
-            <url>scpexe://beaver.codehaus.org:/dist/</url>
+            <id>codehaus-repo</id>
+            <name>Codehaus central repository</name>
+            <url>dav:https://dav.codehaus.org/dist/xdoclet/</url>
         </repository>
         <site>
             <id>codehaus</id>

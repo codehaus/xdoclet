@@ -27,12 +27,9 @@ import junit.framework.TestCase;
  */
 public class ModelCheckerTagFactoryTestCase extends TestCase {
     public static class TestJavaSourceProvider implements JavaSourceProvider {
-        public Collection getURLs() throws IOException {
+        public Collection getURLs() {
             Collection retVal = new ArrayList();
-
-            String xdocletHome = System.getProperty("xdoclet.home");
-            assertNotNull(xdocletHome);
-            URL resource = new File(xdocletHome, "/src/test/java/org/xdoclet/beans/TestBean.java").toURL();
+            URL resource = Thread.currentThread().getContextClassLoader().getResource( "org/xdoclet/beans/TestBean.java");
             assertNotNull(resource);
             retVal.add(resource);
             return retVal;
