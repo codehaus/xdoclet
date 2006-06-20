@@ -12,12 +12,14 @@
     <name>XDoclet</name>
     <version>2.0.5-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <description>XDoclet is a code generation engine based on meta data specified in javadoc tags. This documentation is
-        for XDoclet2,
-        which is a rewrite of &lt;a href="http://xdoclet.sf.net">XDoclet 1.2.x&lt;/a>.</description>
+    <description>
+        XDoclet is a code generation engine based on meta data specified in javadoc tags. 
+        XDoclet 2 is a rewrite of &lt;a href="http://xdoclet.sf.net">XDoclet 1.2.x&lt;/a>.
+    </description>
     <url>http://xdoclet.codehaus.org/</url>
     <inceptionYear>2000</inceptionYear>
     <issueManagement>
+        <system>JIRA</system>
         <url>http://jira.codehaus.org/browse/XDOCLET</url>
     </issueManagement>
     <developers>
@@ -47,26 +49,53 @@
         <contributor>
             <name>Anatol Pomozov</name>
         </contributor>
-    </contributors>
+    </contributors>>
     <scm>
-        <connection>scm:cvs:pserver:anonymous@cvs.codehaus.org:/cvsroot/xdoclet:xdoclet</connection>
+        <connection>scm:cvs:pserver:anonymous@cvs.xdoclet.codehaus.org:/home/projects/xdoclet/scm:xdoclet</connection>
         <developerConnection>
-            scm:cvs:ext:${maven.username}@cvs.codehaus.org:/cvsroot/xdoclet:xdoclet</developerConnection>
-        <url>http://cvs.codehaus.org/viewcvs.cgi/xdoclet/?cvsroot=xdoclet</url>
+            scm:cvs:ext:${user.name}@cvs.xdoclet.codehaus.org:/home/projects/xdoclet/scm:xdoclet
+        </developerConnection> 
     </scm>
     <organization>
         <name>XDoclet Team</name>
-        <url>http://xdoclet.sourceforge.net</url>
+        <url>http://xdoclet.codehaus.org</url>
     </organization>
     <mailingLists>
         <mailingList>
-            <name>XDoclet 2 and Generama List</name>
+            <name>XDoclet 2 User</name>
             <subscribe>
-                http://lists.sourceforge.net/lists/listinfo/xdoclet-two-generama</subscribe>
+                user-subscribe@xdoclet.codehaus.org
+            </subscribe>
             <unsubscribe>
-                http://lists.sourceforge.net/lists/listinfo/xdoclet-two-generama</unsubscribe>
+                user-unsibscribe@xdoclet.codehaus.org
+            </unsubscribe>
             <archive>
-                http://www.mail-archive.com/xdoclet-two-generama%40lists.sourceforge.net/</archive>
+                http://www.mail-archive.com/user@xdoclet.codehaus.org
+            </archive>
+        </mailingList>
+        <mailingList>
+            <name>XDoclet 2 Developer</name>
+            <subscribe>
+                dev-subscribe@xdoclet.codehaus.org
+            </subscribe>
+            <unsubscribe>
+                dev-unsibscribe@xdoclet.codehaus.org
+            </unsubscribe>
+            <archive>
+                http://www.mail-archive.com/dev@xdoclet.codehaus.org
+            </archive>
+        </mailingList>
+        <mailingList>
+            <name>XDoclet 2 SCM</name>
+            <subscribe>
+                scm-subscribe@xdoclet.codehaus.org
+            </subscribe>
+            <unsubscribe>
+                scm-unsibscribe@xdoclet.codehaus.org
+            </unsubscribe>
+            <archive>
+                http://www.mail-archive.com/scm@xdoclet.codehaus.org
+            </archive>
         </mailingList>
         <mailingList>
             <name>XDoclet Plugins Interest List</name>
@@ -126,10 +155,10 @@
             </plugin>
         </plugins>
         <extensions>
-            <extension>
+           <extension>
                 <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-ssh-external</artifactId>
-                <version>1.0-alpha-5</version>
+                <artifactId>wagon-webdav</artifactId>
+                <version>1.0-beta-1-SNAPSHOT</version>
             </extension>
         </extensions>
     </build>
@@ -137,7 +166,7 @@
         <dependency>
             <groupId>generama</groupId>
             <artifactId>generama</artifactId>
-            <version>1.2.2-SNAPSHOT</version>
+            <version>1.2.2</version>
         </dependency>
         <dependency>
             <groupId>generama</groupId>
@@ -226,6 +255,12 @@
             <layout>legacy</layout>
             <url>http://dist.codehaus.org</url>
         </repository>
+        <!-- wagon dav to be found here -->  
+        <repository>
+            <id>apache-snapshots</id>
+            <name>Snapshot repository</name>
+            <url>http://people.apache.org/maven-snapshot-repository/</url>
+        </repository>
     </repositories>
     <ciManagement>
         <notifiers>
@@ -236,14 +271,15 @@
     </ciManagement>
     <distributionManagement>
         <repository>
-            <id>codehaus-repo</id>
-            <name>Codehaus central repository</name>
-            <url>dav:https://dav.codehaus.org/dist/xdoclet/</url>
+            <uniqueVersion>false</uniqueVersion>
+            <id>codehaus-legacy</id>
+            <name>XDoclet central repository on codehaus</name>
+            <url>dav:https://dav.codehaus.org/dist</url>
+            <layout>legacy</layout>
         </repository>
         <site>
-            <id>codehaus</id>
-            <name>codehaus</name>
-            <url>scp://beaver.codehaus.org/home/projects/xdoclet/public_html/maven</url>
+          <id>xdoclet-site</id>
+          <url>dav:https://dav.codehaus.org/xdoclet</url>
         </site>
     </distributionManagement>
 </project>
