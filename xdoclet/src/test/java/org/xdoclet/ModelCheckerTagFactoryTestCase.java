@@ -5,11 +5,11 @@
  */
 package org.xdoclet;
 
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import junit.framework.TestCase;
 
 import org.generama.ConfigurableDocletTagFactory;
 import org.generama.MetadataProvider;
@@ -19,8 +19,6 @@ import org.picocontainer.defaults.DefaultPicoContainer;
 
 import com.thoughtworks.qdox.model.AbstractJavaEntity;
 import com.thoughtworks.qdox.model.JavaField;
-
-import junit.framework.TestCase;
 
 /**
  * @author Diogo Quintela
