@@ -11,7 +11,7 @@
 
     <pomVersion>3</pomVersion>
     <id>xdoclet</id>
-    <currentVersion>2.0.5-SNAPSHOT</currentVersion>
+    <currentVersion>2.0.5</currentVersion>
     <name>XDoclet</name>
     <organization>
         <name>XDoclet Team</name>
@@ -33,7 +33,7 @@
     <siteDirectory>/www/xdoclet.codehaus.org</siteDirectory>
     <repository>
         <connection>scm:cvs:pserver:anonymous@cvs.codehaus.org:/cvsroot/xdoclet:xdoclet</connection>
-        <developerConnection>scm:cvs:ext:${maven.username}@cvs.codehaus.org:/cvsroot/xdoclet:xdoclet</developerConnection>
+        <developerConnection>scm:cvs:ext:${maven.username}@cvs.xdoclet.codehaus.org:/home/projects/xdoclet/scm:xdoclet</developerConnection>
         <!--url>http://cvs.xdoclet.codehaus.org/xdoclet</url-->
         <!-- statcvs only works with this one: -->
         <url>http://cvs.codehaus.org/viewcvs.cgi/xdoclet/?cvsroot=xdoclet</url>
@@ -74,7 +74,7 @@
         <dependency>
             <groupId>generama</groupId>
             <artifactId>generama</artifactId>
-            <version>1.2.2-SNAPSHOT</version>
+            <version>1.2.2</version>
             <url>http://generama.codehaus.org//</url>
         </dependency>
 
@@ -87,7 +87,7 @@
         <dependency>
             <groupId>picocontainer</groupId>
             <artifactId>picocontainer</artifactId>
-            <version>1.0</version>
+            <version>1.2-RC-2</version>
             <url>http://www.picocontainer.org/</url>
         </dependency>
 
