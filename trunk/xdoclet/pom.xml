@@ -10,7 +10,7 @@
     <groupId>xdoclet</groupId>
     <artifactId>xdoclet</artifactId>
     <name>XDoclet</name>
-    <version>2.0.5</version>
+    <version>2.0.6-SNAPSHOT</version>
     <packaging>jar</packaging>
     <description>
         XDoclet is a code generation engine based on meta data specified in javadoc tags. 
