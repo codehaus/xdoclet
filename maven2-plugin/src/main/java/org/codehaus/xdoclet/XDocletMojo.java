@@ -36,12 +36,71 @@ import java.util.Map;
 /**
  * @author Espen Amble Kolstad
  * @author gjoseph
+ * @author Konstantin Pribluda
  *
  * @goal xdoclet
  * @phase generate-sources
  * @description xdoclet2 plugin
  */
 public class XDocletMojo extends AbstractMojo {
+    private static class PluginContainerComposer implements ContainerComposer {
+        private final List compileSourceRoots;
+        private final Config config;
+        private final Map defaultPluginProps;
+
+        public PluginContainerComposer(Config config, Map defaultPluginProps, List compileSourceRoots) {
+            this.config = config;
+            this.defaultPluginProps = defaultPluginProps;
+            this.compileSourceRoots = compileSourceRoots;
+        }
+
+        public void composeContainer(MutablePicoContainer pico, Object assemblyScope) {
+            // duplicate of what is in Generama, XDoclet, XDocletTask to avoid clumsy code
+            pico.registerComponentImplementation(ClasspathFileResourceVelocityComponent.class);
+            pico.registerComponentImplementation(QDoxMetadataProvider.class);
+            pico.registerComponentImplementation(FileWriterMapper.class);
+            pico.registerComponentImplementation(JellyTemplateEngine.class);
+            pico.registerComponentImplementation(VelocityTemplateEngine.class);
+
+            Maven2SourceProvider sourceProvider = new Maven2SourceProvider(config, compileSourceRoots);
+            pico.registerComponentInstance(sourceProvider);
+
+            // register the plugin itself
+            final ClassLoader cl = Thread.currentThread().getContextClassLoader();
+            //System.err.println("fuck, I got a classloader: " + cl);
+            final NanoContainer nano = new DefaultNanoContainer(cl, pico);
+            try {
+                BeanPropertyComponentAdapter adapter = (BeanPropertyComponentAdapter) nano.registerComponentImplementation(config.getPlugin(), config.getPlugin());
+                final Map mergedProps = new HashMap();
+                mergedProps.putAll(defaultPluginProps);
+                mergedProps.putAll(config.getParams());
+                adapter.setProperties(mergedProps);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException("Class Not Found: " + e.getMessage(), e);
+            }
+        }
+    }
+
+    private static class PluginLifecycleContainerBuilder extends DefaultLifecycleContainerBuilder {
+        private BeanPropertyComponentAdapterFactory propertyFactory = new BeanPropertyComponentAdapterFactory(new DefaultComponentAdapterFactory());
+
+        private PluginLifecycleContainerBuilder(ContainerComposer composer) {
+            super(composer);
+        }
+
+        protected PicoContainer createContainer(PicoContainer parentContainer, Object assemblyScope) {
+            return new DefaultPicoContainer(propertyFactory);
+        }
+    }
+
+    /**
+     * A list of config for XDoclet.
+     *
+     * @parameter
+     * @required
+     */
+    private List configs = new LinkedList();
+
     private final ObjectReference containerRef = new SimpleReference();
 
     /**
@@ -52,14 +111,6 @@ public class XDocletMojo extends AbstractMojo {
      * @readonly
      */
     private MavenProject project;
-
-    /**
-     * A list of config for XDoclet.
-     *
-     * @parameter
-     * @required
-     */
-    private List configs = new LinkedList();
 
     public void execute() throws MojoExecutionException, MojoFailureException {
         final Iterator it = configs.iterator();
@@ -99,6 +150,10 @@ public class XDocletMojo extends AbstractMojo {
         }
     }
 
+    public List getConfigs() {
+		return configs;
+	}
+
     private String resolveOutputDir(Config config, String defaultOuputPath) {
         String out = defaultOuputPath;
         Map params = config.getParams();
@@ -111,61 +166,12 @@ public class XDocletMojo extends AbstractMojo {
         return out;
     }
 
-    public void setProject(MavenProject project) {
-        this.project = project;
-    }
-
     public void setConfigs(List configs) {
         this.configs = configs;
     }
 
-    private static class PluginLifecycleContainerBuilder extends DefaultLifecycleContainerBuilder {
-        private BeanPropertyComponentAdapterFactory propertyFactory = new BeanPropertyComponentAdapterFactory(new DefaultComponentAdapterFactory());
-
-        private PluginLifecycleContainerBuilder(ContainerComposer composer) {
-            super(composer);
-        }
-
-        protected PicoContainer createContainer(PicoContainer parentContainer, Object assemblyScope) {
-            return new DefaultPicoContainer(propertyFactory);
-        }
-    }
-
-    private static class PluginContainerComposer implements ContainerComposer {
-        private final Config config;
-        private final Map defaultPluginProps;
-        private final List compileSourceRoots;
-
-        public PluginContainerComposer(Config config, Map defaultPluginProps, List compileSourceRoots) {
-            this.config = config;
-            this.defaultPluginProps = defaultPluginProps;
-            this.compileSourceRoots = compileSourceRoots;
-        }
-
-        public void composeContainer(MutablePicoContainer pico, Object assemblyScope) {
-            // duplicate of what is in Generama, XDoclet, XDocletTask to avoid clumsy code
-            pico.registerComponentImplementation(ClasspathFileResourceVelocityComponent.class);
-            pico.registerComponentImplementation(QDoxMetadataProvider.class);
-            pico.registerComponentImplementation(FileWriterMapper.class);
-            pico.registerComponentImplementation(JellyTemplateEngine.class);
-            pico.registerComponentImplementation(VelocityTemplateEngine.class);
-
-            Maven2SourceProvider sourceProvider = new Maven2SourceProvider(config, compileSourceRoots);
-            pico.registerComponentInstance(sourceProvider);
-
-            // register the plugin itself
-            final ClassLoader cl = getClass().getClassLoader();
-            final NanoContainer nano = new DefaultNanoContainer(cl, pico);
-            try {
-                BeanPropertyComponentAdapter adapter = (BeanPropertyComponentAdapter) nano.registerComponentImplementation(config.getPlugin(), config.getPlugin());
-                final Map mergedProps = new HashMap();
-                mergedProps.putAll(defaultPluginProps);
-                mergedProps.putAll(config.getParams());
-                adapter.setProperties(mergedProps);
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException("Class Not Found: " + e.getMessage(), e);
-            }
-        }
+	public void setProject(MavenProject project) {
+        this.project = project;
     }
 
 }

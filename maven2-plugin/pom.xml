@@ -1,6 +1,7 @@
+
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>maven2-xdoclet2-plugin</artifactId>
     <!--<groupId>org.codehaus.xdoclet</groupId>-->
@@ -11,7 +12,7 @@
     <inceptionYear>2005</inceptionYear>
     <build>
         <extensions>
-           <extension>
+            <extension>
                 <groupId>org.apache.maven.wagon</groupId>
                 <artifactId>wagon-webdav</artifactId>
                 <version>1.0-beta-1-SNAPSHOT</version>
@@ -37,34 +38,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--
-        <dependency>
-            <groupId>commons-jelly</groupId>
-            <artifactId>commons-jelly</artifactId>
-            <version>20050813.225330</version>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-jelly</groupId>
-            <artifactId>commons-jelly-tags-xml</artifactId>
-            <version>20050823.222913</version>
-            <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-jelly</groupId>
-            <artifactId>commons-jelly-tags-jsl</artifactId>
-            <version>1.0</version>
-            <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-jelly</groupId>
-            <artifactId>commons-jelly-tags-define</artifactId>
-            <version>1.0</version>
-            <scope>runtime</scope>
-        </dependency>
-        -->
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-plugin-api</artifactId>
@@ -74,6 +47,12 @@
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-project</artifactId>
             <version>2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-plugin-testing-harness</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -88,7 +67,26 @@
             <layout>legacy</layout>
             <url>http://cvs.apache.org/repository/</url>
         </repository>
+        <repository>
+            <id>apache-snapshots</id>
+            <name>Snapshot repository</name>
+            <url>http://people.apache.org/maven-snapshot-repository/</url>
+        </repository>
     </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>dist.codehaus.org</id>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <name>XDoclet central repository on codehaus</name>
+            <url>http://dist.codehaus.org</url>
+            <layout>legacy</layout>
+        </pluginRepository>
+    </pluginRepositories>
 
     <distributionManagement>
         <repository>
@@ -99,8 +97,8 @@
             <layout>legacy</layout>
         </repository>
         <site>
-          <id>xdoclet-site</id>
-          <url>dav:https://dav.codehaus.org/xdoclet</url>
+            <id>xdoclet-site</id>
+            <url>dav:https://dav.codehaus.org/xdoclet</url>
         </site>
     </distributionManagement>
     <reporting>
