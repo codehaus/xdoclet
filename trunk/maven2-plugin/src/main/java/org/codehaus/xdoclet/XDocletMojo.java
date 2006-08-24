@@ -37,141 +37,165 @@ import java.util.Map;
  * @author Espen Amble Kolstad
  * @author gjoseph
  * @author Konstantin Pribluda
- *
+ * @version $Revision$
  * @goal xdoclet
  * @phase generate-sources
  * @description xdoclet2 plugin
  */
 public class XDocletMojo extends AbstractMojo {
-    private static class PluginContainerComposer implements ContainerComposer {
-        private final List compileSourceRoots;
-        private final Config config;
-        private final Map defaultPluginProps;
+	private static class PluginContainerComposer implements ContainerComposer {
+		private final List compileSourceRoots;
 
-        public PluginContainerComposer(Config config, Map defaultPluginProps, List compileSourceRoots) {
-            this.config = config;
-            this.defaultPluginProps = defaultPluginProps;
-            this.compileSourceRoots = compileSourceRoots;
-        }
+		private final Config config;
 
-        public void composeContainer(MutablePicoContainer pico, Object assemblyScope) {
-            // duplicate of what is in Generama, XDoclet, XDocletTask to avoid clumsy code
-            pico.registerComponentImplementation(ClasspathFileResourceVelocityComponent.class);
-            pico.registerComponentImplementation(QDoxMetadataProvider.class);
-            pico.registerComponentImplementation(FileWriterMapper.class);
-            pico.registerComponentImplementation(JellyTemplateEngine.class);
-            pico.registerComponentImplementation(VelocityTemplateEngine.class);
+		private final Map defaultPluginProps;
 
-            Maven2SourceProvider sourceProvider = new Maven2SourceProvider(config, compileSourceRoots);
-            pico.registerComponentInstance(sourceProvider);
+		public PluginContainerComposer(Config config, Map defaultPluginProps,
+				List compileSourceRoots) {
+			this.config = config;
+			this.defaultPluginProps = defaultPluginProps;
+			this.compileSourceRoots = compileSourceRoots;
+		}
 
-            // register the plugin itself
-            final ClassLoader cl = Thread.currentThread().getContextClassLoader();
-            //System.err.println("fuck, I got a classloader: " + cl);
-            final NanoContainer nano = new DefaultNanoContainer(cl, pico);
-            try {
-                BeanPropertyComponentAdapter adapter = (BeanPropertyComponentAdapter) nano.registerComponentImplementation(config.getPlugin(), config.getPlugin());
-                final Map mergedProps = new HashMap();
-                mergedProps.putAll(defaultPluginProps);
-                mergedProps.putAll(config.getParams());
-                adapter.setProperties(mergedProps);
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException("Class Not Found: " + e.getMessage(), e);
-            }
-        }
-    }
+		public void composeContainer(MutablePicoContainer pico,
+				Object assemblyScope) {
+			// duplicate of what is in Generama, XDoclet, XDocletTask to avoid
+			// clumsy code
+			pico
+					.registerComponentImplementation(ClasspathFileResourceVelocityComponent.class);
+			pico.registerComponentImplementation(QDoxMetadataProvider.class);
+			pico.registerComponentImplementation(FileWriterMapper.class);
+			pico.registerComponentImplementation(JellyTemplateEngine.class);
+			pico.registerComponentImplementation(VelocityTemplateEngine.class);
 
-    private static class PluginLifecycleContainerBuilder extends DefaultLifecycleContainerBuilder {
-        private BeanPropertyComponentAdapterFactory propertyFactory = new BeanPropertyComponentAdapterFactory(new DefaultComponentAdapterFactory());
+			Maven2SourceProvider sourceProvider = new Maven2SourceProvider(
+					config, compileSourceRoots);
+			pico.registerComponentInstance(sourceProvider);
 
-        private PluginLifecycleContainerBuilder(ContainerComposer composer) {
-            super(composer);
-        }
+			// register the plugin itself
+			final ClassLoader cl = Thread.currentThread()
+					.getContextClassLoader();
+			// System.err.println("fuck, I got a classloader: " + cl);
+			final NanoContainer nano = new DefaultNanoContainer(cl, pico);
+			for (Iterator iter = config.getComponents().iterator(); iter
+					.hasNext();) {
+				Component comp = (Component) iter.next();
+				try {
+					BeanPropertyComponentAdapter adapter = (BeanPropertyComponentAdapter) nano
+							.registerComponentImplementation(
+									comp.toString(), comp.getClassname());
+					final Map mergedProps = new HashMap();
+					mergedProps.putAll(defaultPluginProps);
+					mergedProps.putAll(config.getParams());
+					mergedProps.putAll(comp.getParams());
+					adapter.setProperties(mergedProps);
+				} catch (ClassNotFoundException e) {
+					throw new RuntimeException("Class Not Found: "
+							+ e.getMessage(), e);
+				}
+			}
+		}
+	}
 
-        protected PicoContainer createContainer(PicoContainer parentContainer, Object assemblyScope) {
-            return new DefaultPicoContainer(propertyFactory);
-        }
-    }
+	private static class PluginLifecycleContainerBuilder extends
+			DefaultLifecycleContainerBuilder {
+		private BeanPropertyComponentAdapterFactory propertyFactory = new BeanPropertyComponentAdapterFactory(
+				new DefaultComponentAdapterFactory());
 
-    /**
-     * A list of config for XDoclet.
-     *
-     * @parameter
-     * @required
-     */
-    private List configs = new LinkedList();
+		private PluginLifecycleContainerBuilder(ContainerComposer composer) {
+			super(composer);
+		}
 
-    private final ObjectReference containerRef = new SimpleReference();
+		protected PicoContainer createContainer(PicoContainer parentContainer,
+				Object assemblyScope) {
+			return new DefaultPicoContainer(propertyFactory);
+		}
+	}
 
-    /**
-     * The project to create a build for.
-     *
-     * @parameter expression="${project}"
-     * @required
-     * @readonly
-     */
-    private MavenProject project;
+	/**
+	 * A list of config for XDoclet.
+	 * 
+	 * @parameter
+	 * @required
+	 */
+	private List configs = new LinkedList();
 
-    public void execute() throws MojoExecutionException, MojoFailureException {
-        final Iterator it = configs.iterator();
-        while (it.hasNext()) {
-            final Config config = (Config) it.next();
-            getLog().debug(config.toString());
+	private final ObjectReference containerRef = new SimpleReference();
 
-            String defaultOuputPath = project.getBuild().getDirectory() + "/generated-resources/xdoclet";
-            final String outputPath = resolveOutputDir(config, defaultOuputPath);
-            final Map defaultPluginProps = Collections.singletonMap("destdir", outputPath);
-            final ContainerComposer containerComposer = new PluginContainerComposer(config, defaultPluginProps, project.getCompileSourceRoots());
-            final ContainerBuilder containerBuilder = new PluginLifecycleContainerBuilder(containerComposer);
-            try {
-                containerBuilder.buildContainer(containerRef, null, null, true);
-                containerBuilder.killContainer(containerRef);
-            } catch (UndeclaredThrowableException e) {
-                Throwable ex = e.getUndeclaredThrowable();
-                if (ex instanceof InvocationTargetException) {
-                    ex = ((InvocationTargetException) ex).getTargetException();
-                }
-                throw new MojoExecutionException("Undeclared: ", ex);
-            } catch (RuntimeException e) {
-                throw new MojoExecutionException("XDoclet plugin failed: " + e.getMessage(), e);
-            }
+	/**
+	 * The project to create a build for.
+	 * 
+	 * @parameter expression="${project}"
+	 * @required
+	 * @readonly
+	 */
+	private MavenProject project;
 
-            if (config.isAddToSources()) {
-                // TODO if java-generating plugin
-                getLog().debug("Adding " + outputPath + " to compiler path");
-                project.addCompileSourceRoot(outputPath);
-                // TODO else
-                final Resource resource = new Resource();
-                getLog().debug("Adding " + outputPath + " to resources");
-                resource.setDirectory(outputPath);
-                resource.addInclude("**/*");
-                project.addResource(resource);
-            }
-        }
-    }
+	public void execute() throws MojoExecutionException, MojoFailureException {
+		final Iterator it = configs.iterator();
+		while (it.hasNext()) {
+			final Config config = (Config) it.next();
+			getLog().debug(config.toString());
 
-    public List getConfigs() {
+			String defaultOuputPath = project.getBuild().getDirectory()
+					+ "/generated-resources/xdoclet";
+			final String outputPath = resolveOutputDir(config, defaultOuputPath);
+			final Map defaultPluginProps = Collections.singletonMap("destdir",
+					outputPath);
+			final ContainerComposer containerComposer = new PluginContainerComposer(
+					config, defaultPluginProps, project.getCompileSourceRoots());
+			final ContainerBuilder containerBuilder = new PluginLifecycleContainerBuilder(
+					containerComposer);
+			try {
+				containerBuilder.buildContainer(containerRef, null, null, true);
+				containerBuilder.killContainer(containerRef);
+			} catch (UndeclaredThrowableException e) {
+				Throwable ex = e.getUndeclaredThrowable();
+				if (ex instanceof InvocationTargetException) {
+					ex = ((InvocationTargetException) ex).getTargetException();
+				}
+				throw new MojoExecutionException("Undeclared: ", ex);
+			} catch (RuntimeException e) {
+				throw new MojoExecutionException("XDoclet plugin failed: "
+						+ e.getMessage(), e);
+			}
+
+			if (config.isAddToSources()) {
+				// TODO if java-generating plugin
+				getLog().debug("Adding " + outputPath + " to compiler path");
+				project.addCompileSourceRoot(outputPath);
+				// TODO else
+				final Resource resource = new Resource();
+				getLog().debug("Adding " + outputPath + " to resources");
+				resource.setDirectory(outputPath);
+				resource.addInclude("**/*");
+				project.addResource(resource);
+			}
+		}
+	}
+
+	public List getConfigs() {
 		return configs;
 	}
 
-    private String resolveOutputDir(Config config, String defaultOuputPath) {
-        String out = defaultOuputPath;
-        Map params = config.getParams();
-        if (params != null) {
-            String destDir = (String) params.get("destdir");
-            if (destDir != null) {
-                out = destDir;
-            }
-        }
-        return out;
-    }
+	private String resolveOutputDir(Config config, String defaultOuputPath) {
+		String out = defaultOuputPath;
+		Map params = config.getParams();
+		if (params != null) {
+			String destDir = (String) params.get("destdir");
+			if (destDir != null) {
+				out = destDir;
+			}
+		}
+		return out;
+	}
 
-    public void setConfigs(List configs) {
-        this.configs = configs;
-    }
+	public void setConfigs(List configs) {
+		this.configs = configs;
+	}
 
 	public void setProject(MavenProject project) {
-        this.project = project;
-    }
+		this.project = project;
+	}
 
 }
