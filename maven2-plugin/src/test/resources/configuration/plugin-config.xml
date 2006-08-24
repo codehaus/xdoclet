@@ -14,13 +14,19 @@
                                 <glem>glim</glem>
                             </params>
                             <components>
-                                <component classname="componentOne" key="blam">
+                                <component>
+                                    <classname>componentOne</classname>
+                                    <!--
+                                    <key>blam</key> 
+                                    -->
                                     <params>
                                         <foo>bar</foo>
                                         <baz>bang</baz>
                                     </params>
                                 </component>
-                                <component classname="componentTwo" key="glum"/>
+                                <component>
+                                    <classname>componentTwo</classname>
+                                </component>
                             </components>
                             <includes>**/*.java</includes>
                             <excludes>**/No.java</excludes>

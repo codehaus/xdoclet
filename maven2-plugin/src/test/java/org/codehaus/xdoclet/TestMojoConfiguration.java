@@ -17,7 +17,7 @@ public class TestMojoConfiguration extends AbstractMojoTestCase {
 		XDocletMojo mojo = getMojo("target/test-classes/configuration/plugin-config.xml");
 		assertNotNull(mojo);
 		
-		// test that mojo got what we avaited from it
+		// test that mojo got what we provided correctly
 		
 		// it has to have 2 configurations
 		assertEquals(2,mojo.getConfigs().size());
@@ -39,7 +39,13 @@ public class TestMojoConfiguration extends AbstractMojoTestCase {
 		// it has to have 2 components
 		assertEquals(2,config.getComponents().size());
 		
+		Component comp  = (Component) config.getComponents().get(0);
 		
+		assertEquals("componentOne",comp.getClassname());
+		//assertEquals("blam",comp.getKey());
+		
+		comp = (Component) config.getComponents().get(1);
+		assertEquals("componentTwo",comp.getClassname());
 	}
 	public XDocletMojo getMojo(String pomXml) throws Exception {
 		File pom = new File(getBasedir(),pomXml);
