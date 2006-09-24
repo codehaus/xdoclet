@@ -134,7 +134,7 @@ public class QDoxMetadataProvider implements QDoxCapableMetadataProvider, Starta
 
 	public void stop() {
         if (verbose.booleanValue()) {
-		    docletTagFactory.printUnknownTags();
+ 		    docletTagFactory.printUnknownTags();
         }
 	}
 }

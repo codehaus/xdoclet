@@ -166,8 +166,9 @@
         <dependency>
             <groupId>generama</groupId>
             <artifactId>generama</artifactId>
-            <version>1.2.2</version>
+            <version>1.2.3-SNAPSHOT</version>
         </dependency>
+        <!--
         <dependency>
             <groupId>generama</groupId>
             <artifactId>qdox</artifactId>
@@ -187,7 +188,7 @@
             <groupId>nanocontainer</groupId>
             <artifactId>nanocontainer</artifactId>
             <version>1.0-RC-3</version>
-        </dependency>
+        </dependency>  
         <dependency>
             <groupId>velocity</groupId>
             <artifactId>velocity</artifactId>
@@ -248,6 +249,7 @@
             <artifactId>junit</artifactId>
             <version>3.8.1</version>
         </dependency>
+        -->
     </dependencies>
     <repositories>
         <repository>
