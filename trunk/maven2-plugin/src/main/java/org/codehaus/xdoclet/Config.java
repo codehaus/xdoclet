@@ -18,7 +18,6 @@ public class Config {
     private String excludes = "";
     private String includes = "**/*.java";
     private Map params = Collections.EMPTY_MAP;
-    private String plugin;
 
     public List getComponents() {
 		return components;
@@ -40,13 +39,6 @@ public class Config {
         return params;
     }
 
-    /**
-     * @deprecated since we move to several components per invocation
-     * @return
-     */
-    public String getPlugin() {
-        return plugin;
-    }
 
     public boolean isAddToSources() {
         return addToSources;
@@ -75,18 +67,10 @@ public class Config {
     public void setParams(Map params) {
         this.params = params;
     }
-    /**
-     * @deprecated and not used anymore since we hacveseveralplugus
-     * per invocation
-     * @param plugin
-     */
-    public void setPlugin(String plugin) {
-        this.plugin = plugin;
-    }
+
 
     public String toString() {
         return "Config{" +
-                "plugin='" + plugin + '\'' +
                 ", includes=" + includes +
                 ", excludes=" + excludes +
                 ", encoding='" + encoding + '\'' +
