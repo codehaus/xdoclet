@@ -75,7 +75,11 @@ public class Config {
     public void setParams(Map params) {
         this.params = params;
     }
-
+    /**
+     * @deprecated and not used anymore since we hacveseveralplugus
+     * per invocation
+     * @param plugin
+     */
     public void setPlugin(String plugin) {
         this.plugin = plugin;
     }
