@@ -61,8 +61,7 @@ public class XDocletMojo extends AbstractMojo {
 				Object assemblyScope) {
 			// duplicate of what is in Generama, XDoclet, XDocletTask to avoid
 			// clumsy code
-			pico
-					.registerComponentImplementation(ClasspathFileResourceVelocityComponent.class);
+			pico.registerComponentImplementation(ClasspathFileResourceVelocityComponent.class);
 			pico.registerComponentImplementation(QDoxMetadataProvider.class);
 			pico.registerComponentImplementation(FileWriterMapper.class);
 			pico.registerComponentImplementation(JellyTemplateEngine.class);
