@@ -63,7 +63,7 @@
         <repository>
             <id>apache</id>
             <layout>legacy</layout>
-            <url>http://cvs.apache.org/repository/</url>
+            <url>http://cvs.apache.org/repository</url>
         </repository>
         <repository>
             <id>apache-snapshots</id>
@@ -91,7 +91,7 @@
             <uniqueVersion>false</uniqueVersion>
             <id>codehaus-legacy</id>
             <name>XDoclet central repository on codehaus</name>
-            <url>dav:https://dav.codehaus.org/repository/</url>
+            <url>dav:https://dav.codehaus.org/dist</url>
             <layout>legacy</layout>
         </repository>
         <site>
