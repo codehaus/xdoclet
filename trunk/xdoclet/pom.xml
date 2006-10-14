@@ -110,6 +110,7 @@
     <build>
         <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
         <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
+        <!--
         <resources>
             <resource>
                 <directory>${basedir}/src/main/java</directory>
@@ -122,6 +123,7 @@
                 </includes>
             </resource>
         </resources>
+        -->
         <testResources>
             <testResource>
                 <directory>${basedir}/src/test/java</directory>
@@ -151,6 +153,20 @@
                     <includes>
                         <include>**/*TestCase.java</include>
                     </includes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/Abstract*</exclude>
+                    </excludes>
+                    <includes>
+                        <include>**/*TestCase.java</include>
+                    </includes>
+                    <forkMode>always</forkMode>
+                    <childDelegation>false</childDelegation>
                 </configuration>
             </plugin>
         </plugins>
@@ -249,7 +265,7 @@
             <artifactId>junit</artifactId>
             <version>3.8.1</version>
         </dependency>
-        -->
+-->
     </dependencies>
     <repositories>
         <repository>
