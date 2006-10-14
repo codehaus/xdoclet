@@ -11,7 +11,7 @@
 
     <pomVersion>3</pomVersion>
     <id>xdoclet</id>
-    <currentVersion>2.0.5</currentVersion>
+    <currentVersion>2.0.6-SNAPSHOT</currentVersion>
     <name>XDoclet</name>
     <organization>
         <name>XDoclet Team</name>
