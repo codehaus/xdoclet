@@ -40,9 +40,10 @@ public class XDocletTask extends AbstractGeneramaTask {
 				pico.registerComponentInstance(getProject());
 				pico.registerComponentInstance(encoding);
 				pico.registerComponentInstance(verbose);
-				pico.registerComponentImplementation(PropertyComposer.class);
-				pico.registerComponentImplementation(SystemQDoxPropertyExpander.class);
-				pico.registerComponentInstance(new MyPropertiesQDoxPropertyExpander());
+				// turn em off, until we discover how to configure them properly
+//				pico.registerComponentImplementation(PropertyComposer.class);
+//				pico.registerComponentImplementation(SystemQDoxPropertyExpander.class);
+//				pico.registerComponentInstance(new MyPropertiesQDoxPropertyExpander());
 			}
 		};
 	}
