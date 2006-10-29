@@ -110,20 +110,6 @@
     <build>
         <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
         <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
-        <!--
-        <resources>
-            <resource>
-                <directory>${basedir}/src/main/java</directory>
-                <includes>
-                    <include>**/*.jelly</include>
-                    <include>**/*.vm</include>
-                    <include>**/*.xml</include>
-                    <include>**/*.gif</include>
-                    <include>**/*.dtd</include>
-                </includes>
-            </resource>
-        </resources>
-        -->
         <testResources>
             <testResource>
                 <directory>${basedir}/src/test/java</directory>
