@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE project [
+    <!ENTITY Ouml   "&#214;">
+    <!ENTITY oslash "&#248;">
+]>
+
+<project xmlns="http://maven.apache.org/POM/3.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/3.0.0 http://maven.apache.org/maven-v3_0_0.xsd">
+
+    <pomVersion>3</pomVersion>
+    <id>xdoclet</id>
+    <currentVersion>2.0.6-SNAPSHOT</currentVersion>
+    <name>XDoclet</name>
+    <organization>
+        <name>XDoclet Team</name>
+        <url>http://xdoclet.sourceforge.net/</url>
+        <logo>/images/logo.gif</logo>
+    </organization>
+    <inceptionYear>2000</inceptionYear>
+    <package>xdoclet</package>
+    <logo>http://sourceforge.net/sflogo.php?group_id=31602&amp;type=2</logo>
+    <description><![CDATA[
+        XDoclet is a code generation engine based on meta data specified in javadoc tags. This documentation is for XDoclet2,
+        which is a rewrite of <a href="http://xdoclet.sf.net">XDoclet 1.2.x</a>.
+    ]]></description>
+    <shortDescription>XDoclet: Attribute-Oriented Programming</shortDescription>
+
+    <url>http://xdoclet.codehaus.org/</url>
+    <issueTrackingUrl>http://jira.codehaus.org/secure/BrowseProject.jspa?id=10250</issueTrackingUrl>
+    <siteAddress>codehaus.org</siteAddress>
+    <siteDirectory>/www/xdoclet.codehaus.org</siteDirectory>
+    <repository>
+        <connection>scm:cvs:pserver:anonymous@cvs.codehaus.org:/cvsroot/xdoclet:xdoclet</connection>
+        <developerConnection>scm:cvs:ext:${maven.username}@cvs.xdoclet.codehaus.org:/home/projects/xdoclet/scm:xdoclet</developerConnection>
+        <!--url>http://cvs.xdoclet.codehaus.org/xdoclet</url-->
+        <!-- statcvs only works with this one: -->
+        <url>http://cvs.codehaus.org/viewcvs.cgi/xdoclet/?cvsroot=xdoclet</url>
+    </repository>
+
+    <developers>
+        <developer>
+            <name>Aslak Helles&oslash;y</name>
+            <id>rinkrank</id>
+            <email>no.spam.aslak@thoughtworks.net</email>
+            <roles>
+                <role>Project Lead</role>
+                <role>Developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Konstantin Pribluda</name>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <contributors>
+        <contributor>
+            <name>Laurent Etiemble</name>
+        </contributor>
+        <contributor>
+            <name>Takashi Okamoto</name>
+        </contributor>
+        <contributor>
+            <name>Anatol Pomozov</name>
+        </contributor>
+    </contributors>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>generama</groupId>
+            <artifactId>generama</artifactId>
+            <version>1.2.2</version>
+            <url>http://generama.codehaus.org//</url>
+        </dependency>
+
+        <dependency>
+            <groupId>generama</groupId>
+            <artifactId>qdox</artifactId>
+            <version>20051211.114207</version>
+        </dependency>
+
+        <dependency>
+            <groupId>picocontainer</groupId>
+            <artifactId>picocontainer</artifactId>
+            <version>1.2-RC-2</version>
+            <url>http://www.picocontainer.org/</url>
+        </dependency>
+
+        <dependency>
+            <groupId>nanocontainer</groupId>
+            <artifactId>nanocontainer-ant</artifactId>
+            <version>1.0-beta-3</version>
+            <url></url>
+        </dependency>
+
+        <dependency>
+            <groupId>nanocontainer</groupId>
+            <artifactId>nanocontainer</artifactId>
+            <version>1.0-RC-3</version>
+            <url></url>
+        </dependency>
+
+        <dependency>
+            <groupId>velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.4</version>
+            <url>http://jakarta.apache.org/velocity/</url>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>2.1</version>
+            <url>http://jakarta.apache.org/</url>
+        </dependency>
+
+        <dependency>
+            <id>log4j</id>
+            <version>1.2.8</version>
+            <url>http://jakarta.apache.org/log4j/</url>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.0.3</version>
+            <url>http://jakarta.apache.org/commons/logging/</url>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.6.1</version>
+            <url>http://jakarta.apache.org/</url>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-jelly</groupId>
+            <artifactId>commons-jelly</artifactId>
+            <version>1.0</version>
+            <url>http://jakarta.apache.org/jelly/</url>
+        </dependency>
+
+        <dependency>
+            <id>dom4j</id>
+            <version>1.4-dev-8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-jexl</groupId>
+            <artifactId>commons-jexl</artifactId>
+            <version>1.0</version>
+            <url>http://jakarta.apache.org/jexl/</url>
+        </dependency>
+
+        <dependency>
+            <groupId>ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>1.5.3-1</version>
+        </dependency>
+
+        <!-- Build/Test time only -->
+
+        <dependency>
+            <groupId>xmlunit</groupId>
+            <artifactId>xmlunit</artifactId>
+            <version>1.0</version>
+            <url></url>
+        </dependency>
+        <dependency>
+            <groupId>antlr</groupId>
+            <artifactId>antlr</artifactId>
+            <version>2.7.2</version>
+            <url>http://www.antlr.org/</url>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <url></url>
+        </dependency>
+
+    </dependencies>
+    <mailingLists>
+        <mailingList>
+            <name>XDoclet 2 and Generama List</name>
+            <subscribe>http://lists.sourceforge.net/lists/listinfo/xdoclet-two-generama</subscribe>
+            <unsubscribe>http://lists.sourceforge.net/lists/listinfo/xdoclet-two-generama</unsubscribe>
+            <archive>http://www.mail-archive.com/xdoclet-two-generama%40lists.sourceforge.net/</archive>
+        </mailingList>
+        <mailingList>
+            <name>XDoclet Plugins Interest List</name>
+            <subscribe>http://lists.sourceforge.net/lists/listinfo/xdoclet-plugins-interest</subscribe>
+            <unsubscribe>http://lists.sourceforge.net/lists/listinfo/xdoclet-plugins-interest</unsubscribe>
+            <archive>http://www.mail-archive.com/xdoclet-plugins-interest%40lists.sourceforge.net/</archive>
+        </mailingList>
+    </mailingLists>
+
+    <build>
+        <nagEmailAddress>xdoclet-devel@lists.sourceforge.net</nagEmailAddress>
+        <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+        <!-- Resources that are packaged up inside the JAR file -->
+        <resources>
+            <resource>
+                <directory>${basedir}/src/main/java</directory>
+                <includes>
+                    <include>**/*.jelly</include>
+                    <include>**/*.vm</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.gif</include>
+                    <include>**/*.dtd</include>
+                </includes>
+            </resource>
+        </resources>
+
+        <!-- Unit test classes -->
+        <unitTestSourceDirectory>${basedir}/src/test/java</unitTestSourceDirectory>
+        <unitTest>
+            <includes>
+                <include>**/*TestCase.java</include>
+            </includes>
+            <excludes>
+                <exclude>**/*XDocletTaskTestCase.java</exclude>
+            </excludes>
+
+            <resources>
+                <resource>
+                    <directory>${basedir}/src/test/java</directory>
+                    <includes>
+                        <include>**/*.java</include>
+                        <include>**/*.jelly</include>
+                        <include>**/*.vm</include>
+                        <include>**/*.xml</include>
+                        <include>**/*.properties</include>
+                    </includes>
+                </resource>
+            </resources>
+        </unitTest>
+    </build>
+
+    <reports>
+        <report>maven-javadoc-plugin</report>
+        <report>maven-license-plugin</report>
+        <report>maven-simian-plugin</report>
+        <report>maven-clover-plugin</report>
+    </reports>
+
+</project>
