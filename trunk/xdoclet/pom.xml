@@ -160,7 +160,7 @@
            <extension>
                 <groupId>org.apache.maven.wagon</groupId>
                 <artifactId>wagon-webdav</artifactId>
-                <version>1.0-beta-1-SNAPSHOT</version>
+                <version>1.0-beta-2</version>
             </extension>
         </extensions>
     </build>
@@ -168,7 +168,7 @@
         <dependency>
             <groupId>generama</groupId>
             <artifactId>generama</artifactId>
-            <version>1.2.3-SNAPSHOT</version>
+            <version>1.2.3</version>
         </dependency>
     </dependencies>
     <repositories>
