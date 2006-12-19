@@ -9,6 +9,37 @@
     <name>Maven2 XDoclet2 Plugin</name>
     <version>2.0.5-SNAPSHOT</version>
     <inceptionYear>2005</inceptionYear>
+    <issueManagement>
+        <system>JIRA</system>
+        <url>http://jira.codehaus.org/browse/XDOCLET</url>
+    </issueManagement>
+    <developers>
+        <developer>
+            <id>rinkrank</id>
+            <name>Aslak Hellesøy</name>
+            <email>no.spam.aslak@thoughtworks.net</email>
+            <roles>
+                <role>Project Lead</role>
+                <role>Developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Konstantin Pribluda</name>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Gregory Josef</name>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:cvs:pserver:anonymous@cvs.xdoclet.codehaus.org:/home/projects/xdoclet/scm:maven2-plugin</connection>
+        <developerConnection>scm:cvs:ext:ko5tik@cvs.xdoclet.codehaus.org:/home/projects/xdoclet/scm:maven2-plugin</developerConnection>
+    </scm>
     <build>
         <extensions>
             <extension>
