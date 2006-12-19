@@ -1,8 +1,0 @@
-target
-velocity.log*
-maven.log*
-junit*.properties
-*.ipr
-*.iws
-*.iml
-.clover
