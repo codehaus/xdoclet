@@ -116,13 +116,16 @@
     </pluginRepositories>
 
     <distributionManagement>
-        <repository>
-            <uniqueVersion>false</uniqueVersion>
-            <id>codehaus-legacy</id>
-            <name>XDoclet central repository on codehaus</name>
-            <url>dav:https://dav.codehaus.org/dist</url>
-            <layout>legacy</layout>
+       <repository>
+            <id>codehaus.org</id>
+            <name>Codehaus PicoContainer Repository</name>
+            <url>dav:https://dav.codehaus.org/repository/xdoclet/</url>
         </repository>
+        <snapshotRepository>
+            <id>codehaus.org</id>
+            <name>Codehaus PicoContainer Snapshot Repository</name>
+            <url>dav:https://dav.codehaus.org/snapshots.repository/xdoclet/</url>
+        </snapshotRepository>
         <site>
             <id>xdoclet-site</id>
             <url>dav:https://dav.codehaus.org/xdoclet</url>
