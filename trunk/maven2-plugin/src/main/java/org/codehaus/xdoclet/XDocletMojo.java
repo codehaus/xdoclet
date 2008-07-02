@@ -1,21 +1,12 @@
 package org.codehaus.xdoclet;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.UndeclaredThrowableException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.maven.model.Resource;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 import org.generama.JellyTemplateEngine;
-import org.generama.MergeableVelocityTemplateEngine;
+import org.generama.VelocityTemplateEngine;
 import org.generama.defaults.FileWriterMapper;
 import org.generama.velocity.ClasspathFileResourceVelocityComponent;
 import org.nanocontainer.DefaultNanoContainer;
@@ -32,6 +23,15 @@ import org.picocontainer.defaults.DefaultPicoContainer;
 import org.picocontainer.defaults.ObjectReference;
 import org.picocontainer.defaults.SimpleReference;
 import org.xdoclet.QDoxMetadataProvider;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.UndeclaredThrowableException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Espen Amble Kolstad
@@ -65,7 +65,7 @@ public class XDocletMojo extends AbstractMojo {
 			pico.registerComponentImplementation(QDoxMetadataProvider.class);
 			pico.registerComponentImplementation(FileWriterMapper.class);
 			pico.registerComponentImplementation(JellyTemplateEngine.class);
-			pico.registerComponentImplementation(MergeableVelocityTemplateEngine.class);
+			pico.registerComponentImplementation(VelocityTemplateEngine.class);
 
 			Maven2SourceProvider sourceProvider = new Maven2SourceProvider(
 					config, compileSourceRoots);
