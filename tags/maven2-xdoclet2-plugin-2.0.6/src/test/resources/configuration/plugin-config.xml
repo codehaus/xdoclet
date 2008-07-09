@@ -1,0 +1,45 @@
+
+<project>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>xdoclet</groupId>
+                <artifactId>maven2-xdoclet2-plugin</artifactId>
+                <configuration>
+                    <configs>
+                        <config>
+                            <encoding>blabla</encoding>
+                            <params>
+                                <blurge>glam</blurge>
+                                <glem>glim</glem>
+                            </params>
+                            <components>
+                                <component>
+                                    <classname>componentOne</classname>
+                                    <!--
+                                    <key>blam</key> 
+                                    -->
+                                    <params>
+                                        <foo>bar</foo>
+                                        <baz>bang</baz>
+                                    </params>
+                                </component>
+                                <component>
+                                    <classname>componentTwo</classname>
+                                </component>
+                            </components>
+                            <includes>**/*.java</includes>
+                            <excludes>**/No.java</excludes>
+                        </config>
+                        <config>
+                            <includes>**/*.java</includes>
+                            <params>
+                                <packagereplace>org.xdoclet.plugin.${xdoclet.plugin.namespace}.qtags</packagereplace>
+                            </params>
+                        </config>
+                    </configs>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
