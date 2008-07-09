@@ -1,3 +1,4 @@
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>maven2-xdoclet2-plugin</artifactId>
@@ -34,10 +35,9 @@
         </developer>
     </developers>
     <scm>
-        <connection>scm:cvs:pserver:anonymous@cvs.xdoclet.codehaus.org:/home/projects/xdoclet/scm:maven2-plugin</connection>
-        <developerConnection>scm:cvs:ext:ko5tik@cvs.xdoclet.codehaus.org:/home/projects/xdoclet/scm:maven2-plugin</developerConnection>
-      <tag>maven2-xdoclet2-plugin-2.0.5</tag>
-  </scm>
+        <connection>scm:svn:http://svn.codehaus.org/xdoclet/branches/maven2-plugin/pre_2_0_6/</connection>
+        <developerConnection>scm:svn:https://svn.codehaus.org/xdoclet/branches/maven2-plugin/pre_2_0_6/</developerConnection>
+    </scm>
     <build>
         <extensions>
             <extension>
@@ -117,12 +117,15 @@
 
     <distributionManagement>
         <repository>
-            <uniqueVersion>false</uniqueVersion>
-            <id>codehaus-legacy</id>
-            <name>XDoclet central repository on codehaus</name>
-            <url>dav:https://dav.codehaus.org/dist</url>
-            <layout>legacy</layout>
+            <id>codehaus.org</id>
+            <name>Codehaus PicoContainer Repository</name>
+            <url>dav:https://dav.codehaus.org/repository/xdoclet/</url>
         </repository>
+        <snapshotRepository>
+            <id>codehaus.org</id>
+            <name>Codehaus PicoContainer Snapshot Repository</name>
+            <url>dav:https://dav.codehaus.org/snapshots.repository/xdoclet/</url>
+        </snapshotRepository>
         <site>
             <id>xdoclet-site</id>
             <url>dav:https://dav.codehaus.org/xdoclet</url>
