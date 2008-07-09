@@ -1,0 +1,139 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>maven2-xdoclet2-plugin</artifactId>
+    <groupId>xdoclet</groupId>
+    <packaging>maven-plugin</packaging>
+    <name>Maven2 XDoclet2 Plugin</name>
+    <version>2.0.6-SNAPSHOT</version>
+    <inceptionYear>2005</inceptionYear>
+    <issueManagement>
+        <system>JIRA</system>
+        <url>http://jira.codehaus.org/browse/XDOCLET</url>
+    </issueManagement>
+    <developers>
+        <developer>
+            <id>rinkrank</id>
+            <name>Aslak Hellesøy</name>
+            <email>no.spam.aslak@thoughtworks.net</email>
+            <roles>
+                <role>Project Lead</role>
+                <role>Developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Konstantin Pribluda</name>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+        <developer>
+            <name>Gregory Josef</name>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:cvs:pserver:anonymous@cvs.xdoclet.codehaus.org:/home/projects/xdoclet/scm:maven2-plugin</connection>
+        <developerConnection>scm:cvs:ext:ko5tik@cvs.xdoclet.codehaus.org:/home/projects/xdoclet/scm:maven2-plugin</developerConnection>
+      <tag>maven2-xdoclet2-plugin-2.0.5</tag>
+  </scm>
+    <build>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-webdav</artifactId>
+                <version>1.0-beta-2</version>
+            </extension>
+        </extensions>
+    </build>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>xdoclet</groupId>
+            <artifactId>xdoclet</artifactId>
+            <version>2.0.6</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>mockobjects</groupId>
+                    <artifactId>mockobjects</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>picocontainer</groupId>
+                    <artifactId>picocontainer-tck</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-plugin-api</artifactId>
+            <version>2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-project</artifactId>
+            <version>2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.shared</groupId>
+            <artifactId>maven-plugin-testing-harness</artifactId>
+            <version>1.0-beta-1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>dist.codehaus.org</id>
+            <layout>legacy</layout>
+            <url>http://dist.codehaus.org</url>
+        </repository>
+        <repository>
+            <id>apache</id>
+            <layout>legacy</layout>
+            <url>http://cvs.apache.org/repository</url>
+        </repository>
+        <repository>
+            <id>apache-snapshots</id>
+            <name>Snapshot repository</name>
+            <url>http://people.apache.org/maven-snapshot-repository/</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>dist.codehaus.org</id>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <name>XDoclet central repository on codehaus</name>
+            <url>http://dist.codehaus.org</url>
+            <layout>legacy</layout>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <distributionManagement>
+        <repository>
+            <uniqueVersion>false</uniqueVersion>
+            <id>codehaus-legacy</id>
+            <name>XDoclet central repository on codehaus</name>
+            <url>dav:https://dav.codehaus.org/dist</url>
+            <layout>legacy</layout>
+        </repository>
+        <site>
+            <id>xdoclet-site</id>
+            <url>dav:https://dav.codehaus.org/xdoclet</url>
+        </site>
+    </distributionManagement>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-plugin-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </reporting>
+</project>
