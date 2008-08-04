@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.codehaus.xdoclet</groupId>
     <artifactId>xdoclet</artifactId>
@@ -6,7 +7,7 @@
     <version>2.0.7-SNAPSHOT</version>
     <packaging>jar</packaging>
     <description>
-        XDoclet is a code generation engine based on meta data specified in javadoc tags. 
+        XDoclet is a code generation engine based on meta data specified in javadoc tags.
         XDoclet 2 is a rewrite of &lt;a href="http://xdoclet.sf.net"&gt;XDoclet 1.2.x&lt;/a&gt;.
     </description>
     <url>http://xdoclet.codehaus.org/</url>
@@ -42,11 +43,11 @@
         <contributor>
             <name>Anatol Pomozov</name>
         </contributor>
-    </contributors>&gt;
+    </contributors>
     <scm>
         <connection>scm:svn:http://svn.codehaus.org/xdoclet/trunk/xdoclet</connection>
         <developerConnection>scm:svn:https://svn.codehaus.org/xdoclet/trunk/xdoclet</developerConnection>
-  </scm>
+    </scm>
     <organization>
         <name>XDoclet Team</name>
         <url>http://xdoclet.codehaus.org</url>
@@ -91,11 +92,14 @@
         <mailingList>
             <name>XDoclet Plugins Interest List</name>
             <subscribe>
-                http://lists.sourceforge.net/lists/listinfo/xdoclet-plugins-interest</subscribe>
+                http://lists.sourceforge.net/lists/listinfo/xdoclet-plugins-interest
+            </subscribe>
             <unsubscribe>
-                http://lists.sourceforge.net/lists/listinfo/xdoclet-plugins-interest</unsubscribe>
+                http://lists.sourceforge.net/lists/listinfo/xdoclet-plugins-interest
+            </unsubscribe>
             <archive>
-                http://www.mail-archive.com/xdoclet-plugins-interest%40lists.sourceforge.net/</archive>
+                http://www.mail-archive.com/xdoclet-plugins-interest%40lists.sourceforge.net/
+            </archive>
         </mailingList>
     </mailingLists>
     <build>
@@ -148,7 +152,7 @@
             </plugin>
         </plugins>
         <extensions>
-           <extension>
+            <extension>
                 <groupId>org.apache.maven.wagon</groupId>
                 <artifactId>wagon-webdav</artifactId>
                 <version>1.0-beta-2</version>
@@ -162,23 +166,6 @@
             <version>1.2.4-SNAPSHOT</version>
         </dependency>
     </dependencies>
-    <repositories>
-        <!--
-        <repository>
-            <id>dist.codehaus.org</id>
-            <layout>legacy</layout>
-            <url>http://dist.codehaus.org</url>
-        </repository>
-        -->
-        <!-- wagon dav to be found here -->
-        <!--
-        <repository>
-            <id>apache-snapshots</id>
-            <name>Snapshot repository</name>
-            <url>http://people.apache.org/maven-snapshot-repository/</url>
-        </repository>
-        -->
-    </repositories>
     <ciManagement>
         <notifiers>
             <notifier>
@@ -198,8 +185,8 @@
             <url>dav:https://dav.codehaus.org/snapshots.repository/xdoclet/</url>
         </snapshotRepository>
         <site>
-          <id>xdoclet-site</id>
-          <url>dav:https://dav.codehaus.org/xdoclet</url>
+            <id>xdoclet-site</id>
+            <url>dav:https://dav.codehaus.org/xdoclet</url>
         </site>
     </distributionManagement>
 </project>
