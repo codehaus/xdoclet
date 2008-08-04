@@ -44,8 +44,8 @@
         </contributor>
     </contributors>&gt;
     <scm>
-        <connection>scm:cvs:pserver:anonymous@cvs.xdoclet.codehaus.org:/home/projects/xdoclet/scm:xdoclet</connection>
-        <developerConnection>scm:cvs:ext:ko5tik@cvs.xdoclet.codehaus.org:/home/projects/xdoclet/scm:xdoclet</developerConnection>
+        <connection>scm:svn:http://svn.codehaus.org/xdoclet/trunk/xdoclet</connection>
+        <developerConnection>scm:svn:https://svn.codehaus.org/xdoclet/trunk/xdoclet</developerConnection>
   </scm>
     <organization>
         <name>XDoclet Team</name>
