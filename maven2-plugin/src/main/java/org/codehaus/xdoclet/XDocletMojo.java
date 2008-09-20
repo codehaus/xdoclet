@@ -1,10 +1,18 @@
 package org.codehaus.xdoclet;
 
 import org.apache.maven.model.Resource;
+import org.apache.maven.model.Dependency;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.artifact.factory.ArtifactFactory;
+import org.apache.maven.artifact.resolver.ArtifactResolver;
+import org.apache.maven.artifact.resolver.ArtifactResolutionException;
+import org.apache.maven.artifact.resolver.ArtifactNotFoundException;
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.repository.ArtifactRepository;
+import org.apache.maven.shared.artifact.filter.PatternIncludesArtifactFilter;
 import org.generama.JellyTemplateEngine;
 import org.generama.VelocityTemplateEngine;
 import org.generama.defaults.FileWriterMapper;
@@ -32,6 +40,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
 
 /**
  * @author Espen Amble Kolstad
@@ -45,16 +54,18 @@ import java.util.Map;
 public class XDocletMojo extends AbstractMojo {
 	private static class PluginContainerComposer implements ContainerComposer {
 		private final List compileSourceRoots;
+		private final List dependenciesSourcesURLs;
 
 		private final Config config;
 
 		private final Map defaultPluginProps;
 
 		public PluginContainerComposer(Config config, Map defaultPluginProps,
-				List compileSourceRoots) {
+				List compileSourceRoots, List dependenciesSourcesURLs) {
 			this.config = config;
 			this.defaultPluginProps = defaultPluginProps;
 			this.compileSourceRoots = compileSourceRoots;
+			this.dependenciesSourcesURLs = dependenciesSourcesURLs;
 		}
 
 		public void composeContainer(MutablePicoContainer pico,
@@ -68,7 +79,7 @@ public class XDocletMojo extends AbstractMojo {
 			pico.registerComponentImplementation(VelocityTemplateEngine.class);
 
 			Maven2SourceProvider sourceProvider = new Maven2SourceProvider(
-					config, compileSourceRoots);
+					config, compileSourceRoots, dependenciesSourcesURLs);
 			pico.registerComponentInstance(sourceProvider);
 
 			// register the plugin itself
@@ -113,7 +124,7 @@ public class XDocletMojo extends AbstractMojo {
 
 	/**
 	 * A list of config for XDoclet.
-	 * 
+	 *
 	 * @parameter
 	 * @required
 	 */
@@ -130,7 +141,77 @@ public class XDocletMojo extends AbstractMojo {
 	 */
 	private MavenProject project;
 
+	/**
+	 * Local maven repository.
+	 *
+	 * @parameter expression="${localRepository}"
+	 * @required
+	 * @readonly
+	 */
+	private ArtifactRepository localRepository;
+
+	/**
+	 * Artifact factory, needed to download source jars for inclusion in classpath.
+	 *
+	 * @component role="org.apache.maven.artifact.factory.ArtifactFactory"
+	 * @required
+	 * @readonly
+	 */
+	private ArtifactFactory artifactFactory;
+
+	/**
+	 * Artifact resolver, needed to download source jars for inclusion in classpath.
+	 *
+	 * @component role="org.apache.maven.artifact.resolver.ArtifactResolver"
+	 * @required
+	 * @readonly
+	 */
+	private ArtifactResolver artifactResolver;
+
+	/**
+	 * A comma separated list of patterns for which source jars artifacts should be passed to QDox for parsing.
+	 * i.e "org.apache:*,com:*,net.sourceforge.myproject:myartifact" or even "foo.bar:baz*" are supported.
+	 * The version can't be specified here and will be deducted from the project's dependencies.
+	 * If you don't want to <strong>generate</strong> code or descriptors for these artifacts, you'll need
+	 * to add <code>&lt;restrictedpath&gt;file://${settings.localRepository}&lt;/restrictedpath&gt;</code> to the
+	 * appropriate components(xdoclet plugins).
+	 * @parameter
+	 */
+	private String sourceArtifacts;
+
 	public void execute() throws MojoExecutionException, MojoFailureException {
+		final List dependenciesSourcesURLs = new ArrayList();
+
+		final List sourceDependencyIncludes = Util.toTrimmedList(sourceArtifacts);
+		final PatternIncludesArtifactFilter filter = new PatternIncludesArtifactFilter(sourceDependencyIncludes, true);
+
+		if (!sourceDependencyIncludes.isEmpty()) {
+			final List remoteArtifactRepositories = project.getRemoteArtifactRepositories();
+			final List deps = project.getDependencies();
+
+			final Iterator itDeps = deps.iterator();
+			while (itDeps.hasNext()) {
+				final Dependency dep = (Dependency) itDeps.next();
+				final String artifactId = dep.getArtifactId();
+				final String groupId = dep.getGroupId();
+				final String version = dep.getVersion();
+				final Artifact a = artifactFactory.createArtifactWithClassifier(groupId, artifactId, version, "java-source", "sources");
+				try {
+					if (filter.include(a)) {
+						artifactResolver.resolve(a, remoteArtifactRepositories, localRepository);
+						if (a.getFile() == null) {
+							throw new ArtifactNotFoundException("Can't resolve", a);
+						}
+						dependenciesSourcesURLs.add(a.getFile());
+					}
+				} catch (ArtifactNotFoundException e) {
+					throw new MojoExecutionException("Source artifact for " + groupId + ":" + artifactId + ":" + version + " was not found : " + e.getMessage());
+				} catch (ArtifactResolutionException e) {
+					getLog().warn("Could not download source artifact for " + groupId + ":" + artifactId + ":" + version + " : " + e.getMessage());
+				}
+			}
+		}
+
 		final Iterator it = configs.iterator();
 		while (it.hasNext()) {
 			final Config config = (Config) it.next();
@@ -142,7 +223,7 @@ public class XDocletMojo extends AbstractMojo {
 			final Map defaultPluginProps = Collections.singletonMap("destdir",
 					outputPath);
 			final ContainerComposer containerComposer = new PluginContainerComposer(
-					config, defaultPluginProps, project.getCompileSourceRoots());
+					config, defaultPluginProps, project.getCompileSourceRoots(), dependenciesSourcesURLs);
 			final ContainerBuilder containerBuilder = new PluginLifecycleContainerBuilder(
 					containerComposer);
 			try {
