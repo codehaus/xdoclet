@@ -13,8 +13,10 @@ import org.apache.maven.artifact.resolver.ArtifactNotFoundException;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.shared.artifact.filter.PatternIncludesArtifactFilter;
+import org.codehaus.plexus.util.DirectoryScanner;
+import org.codehaus.plexus.util.FileUtils;
 import org.generama.JellyTemplateEngine;
-import org.generama.VelocityTemplateEngine;
+import org.generama.MergeableVelocityTemplateEngine;
 import org.generama.defaults.FileWriterMapper;
 import org.generama.velocity.ClasspathFileResourceVelocityComponent;
 import org.nanocontainer.DefaultNanoContainer;
@@ -32,8 +34,11 @@ import org.picocontainer.defaults.ObjectReference;
 import org.picocontainer.defaults.SimpleReference;
 import org.xdoclet.QDoxMetadataProvider;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.UndeclaredThrowableException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -76,7 +81,7 @@ public class XDocletMojo extends AbstractMojo {
 			pico.registerComponentImplementation(QDoxMetadataProvider.class);
 			pico.registerComponentImplementation(FileWriterMapper.class);
 			pico.registerComponentImplementation(JellyTemplateEngine.class);
-			pico.registerComponentImplementation(VelocityTemplateEngine.class);
+			pico.registerComponentImplementation(MergeableVelocityTemplateEngine.class);
 
 			Maven2SourceProvider sourceProvider = new Maven2SourceProvider(
 					config, compileSourceRoots, dependenciesSourcesURLs);
@@ -179,6 +184,20 @@ public class XDocletMojo extends AbstractMojo {
 	 */
 	private String sourceArtifacts;
 
+    /**
+     * The output directory into which to copy the sources.
+     * 
+     * @parameter expression="${project.build.outputDirectory}/generated-resources/xdoclet"
+     */
+    private String sourcesOuputDirectory;
+
+    /**
+     * The output directory into which to copy the resources.
+     * 
+     * @parameter expression="${project.build.outputDirectory}/generated-resources/xdoclet"
+     */
+    private String resourcesOutputDirectory;
+
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		final List dependenciesSourcesURLs = new ArrayList();
 
@@ -240,17 +259,31 @@ public class XDocletMojo extends AbstractMojo {
 						+ e.getMessage(), e);
 			}
 
-			if (config.isAddToSources()) {
-				// TODO if java-generating plugin
-				getLog().debug("Adding " + outputPath + " to compiler path");
-				project.addCompileSourceRoot(outputPath);
-				// TODO else
-				final Resource resource = new Resource();
-				getLog().debug("Adding " + outputPath + " to resources");
-				resource.setDirectory(outputPath);
-				resource.addInclude("**/*");
-				project.addResource(resource);
-			}
+            final File outpathFile = new File(outputPath);
+            if (outpathFile.exists()) {
+                // TODO if java-generating plugin
+                if (config.isAddToSources()) {
+                    if (!outputPath.equals(sourcesOuputDirectory)) {
+                        copyOutput(outpathFile, new File(sourcesOuputDirectory), config.getExcludes(), config.getIncludes());
+                    }
+
+                    getLog().debug("Adding " + sourcesOuputDirectory + " to compiler path");
+                    project.addCompileSourceRoot(sourcesOuputDirectory);
+                    // TODO else
+                }
+                if (config.isAddToResources()) {
+                    if (!outputPath.equals(resourcesOutputDirectory)) {
+                        copyOutput(outpathFile, new File(resourcesOutputDirectory), config.getResourcesExcludes(), config.getResourcesIncludes());
+                    }
+
+                    final Resource resource = new Resource();
+                    getLog().debug("Adding " + resourcesOutputDirectory + " to resources");
+                    resource.setDirectory(resourcesOutputDirectory);
+                    resource.addInclude(config.getResourcesIncludes());
+                    resource.addExclude(config.getResourcesExcludes());
+                    project.addResource(resource);
+                }
+            }
 		}
 	}
 
@@ -270,7 +303,36 @@ public class XDocletMojo extends AbstractMojo {
 		return out;
 	}
 
-	public void setConfigs(List configs) {
+    void copyOutput(File inputDir, File outputDir, String excludes, String includes) throws MojoExecutionException {
+        DirectoryScanner scanner = new DirectoryScanner();
+        scanner.setExcludes(Util.toTrimmedStringArray(excludes));
+        scanner.setIncludes(Util.toTrimmedStringArray(includes));
+        scanner.setBasedir(inputDir);
+        scanner.addDefaultExcludes();
+        scanner.scan();
+        List includedFiles = Arrays.asList(scanner.getIncludedFiles());
+        for (Iterator j = includedFiles.iterator(); j.hasNext();) {
+            String name = (String) j.next();
+
+            File source = new File(inputDir, name);
+
+            File destinationFile = new File(outputDir, name);
+
+            if (!destinationFile.getParentFile().exists()) {
+                destinationFile.getParentFile().mkdirs();
+            }
+
+            try {
+                if (destinationFile.lastModified() < source.lastModified()) {
+                    FileUtils.copyFile(source, destinationFile);
+                }
+            } catch (IOException e) {
+                throw new MojoExecutionException("Error copying resources", e);
+            }
+        }
+    }
+
+    public void setConfigs(List configs) {
 		this.configs = configs;
 	}
 
