@@ -13,10 +13,13 @@ import java.util.Map;
  */
 public class Config {
     private boolean addToSources = true;
+    private boolean addToResources = true;    
     private List components = Collections.EMPTY_LIST;
     private String encoding = System.getProperty("file.encoding");
     private String excludes = "";
     private String includes = "**/*.java";
+    private String resourcesExcludes = "**/*.java";
+    private String resourcesIncludes = "**/*";
     private Map params = Collections.EMPTY_MAP;
 
     public List getComponents() {
@@ -35,6 +38,14 @@ public class Config {
         return includes;
     }
 
+    public String getResourcesExcludes() {
+        return resourcesExcludes;
+    }
+
+    public String getResourcesIncludes() {
+        return resourcesIncludes;
+    }
+
     public Map getParams() {
         return params;
     }
@@ -46,6 +57,14 @@ public class Config {
 
     public void setAddToSources(boolean addToSources) {
         this.addToSources = addToSources;
+    }
+
+    public boolean isAddToResources() {
+        return addToResources;
+    }
+
+    public void setAddToResources(boolean addToResources) {
+        this.addToResources = addToResources;
     }
 
     public void setComponents(List components) {
@@ -64,6 +83,14 @@ public class Config {
         this.includes = includes;
     }
 
+    public void setResourcesExcludes(String resourcesExcludes) {
+        this.resourcesExcludes = resourcesExcludes;
+    }
+
+    public void setResourcesIncludes(String resourcesIncludes) {
+        this.resourcesIncludes = resourcesIncludes;
+    }
+
     public void setParams(Map params) {
         this.params = params;
     }
@@ -73,8 +100,11 @@ public class Config {
         return "Config{" +
                 ", includes=" + includes +
                 ", excludes=" + excludes +
+                ", resourcesIncludes=" + resourcesIncludes +
+                ", resourcesExcludes=" + resourcesExcludes +
                 ", encoding='" + encoding + '\'' +
                 ", addToSources='" + addToSources + '\'' +
+                ", addToResources='" + addToResources + '\'' +
                 ", params=" + params +
                 '}';
     }
