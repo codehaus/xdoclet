@@ -11,12 +11,12 @@ public class DummyClassTagImpl extends org.xdoclet.XDocletTag {
     private static final java.util.List ALLOWED_PARAMETERS = java.util.Arrays.asList(new String[] {"name", "value", "extra", ""});
     private static final java.util.List ALLOWED_VALUES = java.util.Arrays.asList(new String[] {""});
 
-    public DummyClassTagImpl(String name, String value, com.thoughtworks.qdox.model.AbstractJavaEntity entity,
+    public DummyClassTagImpl(String name, String value, com.thoughtworks.qdox.model.AbstractBaseJavaEntity entity,
             int lineNumber, org.xdoclet.QDoxPropertyExpander expander) {
             super(name, value, entity, lineNumber, expander);
         }
 
-    public DummyClassTagImpl(String name, String value, com.thoughtworks.qdox.model.AbstractJavaEntity entity,
+    public DummyClassTagImpl(String name, String value, com.thoughtworks.qdox.model.AbstractBaseJavaEntity entity,
         int lineNumber) {
         super(name, value, entity, lineNumber);
     }
@@ -47,7 +47,7 @@ public class DummyClassTagImpl extends org.xdoclet.XDocletTag {
         }
 
         // check uniqueness
-        if (getContext().getTagsByName(NAME).length > 1) {
+        if (((com.thoughtworks.qdox.model.AbstractJavaEntity) getContext()).getTagsByName(NAME).length > 1) {
             bomb("is allowed only once");
         }
 

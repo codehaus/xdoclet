@@ -17,7 +17,7 @@ import org.generama.tests.SinkWriterMapper;
 import org.picocontainer.MutablePicoContainer;
 import org.picocontainer.defaults.DefaultPicoContainer;
 
-import com.thoughtworks.qdox.model.AbstractJavaEntity;
+import com.thoughtworks.qdox.model.AbstractBaseJavaEntity;
 import com.thoughtworks.qdox.model.JavaField;
 
 /**
@@ -83,7 +83,7 @@ public class ModelCheckerTagFactoryTestCase extends TestCase {
     public static class TestTag extends XDocletTag {
         private boolean called;
 
-        public TestTag(String name, String value, AbstractJavaEntity context, int lineNumber) {
+        public TestTag(String name, String value, AbstractBaseJavaEntity context, int lineNumber) {
             super(name, value, context, lineNumber);
             this.called = false;
         }
@@ -106,7 +106,7 @@ public class ModelCheckerTagFactoryTestCase extends TestCase {
     public static class TagOne extends TestTag {
         private static TagOne singleton;
 
-        public TagOne(String name, String value, AbstractJavaEntity context, int lineNumber) {
+        public TagOne(String name, String value, AbstractBaseJavaEntity context, int lineNumber) {
             super(name, value, context, lineNumber);
             singleton = this;
         }
@@ -119,7 +119,7 @@ public class ModelCheckerTagFactoryTestCase extends TestCase {
     public static class TagTwo extends TestTag {
         private static TagTwo singleton;
 
-        public TagTwo(String name, String value, AbstractJavaEntity context, int lineNumber) {
+        public TagTwo(String name, String value, AbstractBaseJavaEntity context, int lineNumber) {
             super(name, value, context, lineNumber);
             singleton = this;
         }

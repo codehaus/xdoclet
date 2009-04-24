@@ -179,8 +179,8 @@ public class QDoxMetadataProvider implements QDoxCapableMetadataProvider,
 
 	public String getOriginalPackageName(Object metadata) {
 		if (metadata instanceof JavaClass) {
-			JavaClass javaClass = (JavaClass) metadata;
-			return javaClass.getPackage();
+                    JavaClass javaClass = (JavaClass) metadata;
+                    return javaClass.getPackage().getName();
 		}
 		return "";
 	}
