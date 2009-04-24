@@ -59,7 +59,7 @@
                 user-subscribe@xdoclet.codehaus.org
             </subscribe>
             <unsubscribe>
-                user-unsibscribe@xdoclet.codehaus.org
+                user-unsubscribe@xdoclet.codehaus.org
             </unsubscribe>
             <archive>
                 http://www.mail-archive.com/user@xdoclet.codehaus.org
@@ -71,7 +71,7 @@
                 dev-subscribe@xdoclet.codehaus.org
             </subscribe>
             <unsubscribe>
-                dev-unsibscribe@xdoclet.codehaus.org
+                dev-unsubscribe@xdoclet.codehaus.org
             </unsubscribe>
             <archive>
                 http://www.mail-archive.com/dev@xdoclet.codehaus.org
@@ -83,7 +83,7 @@
                 scm-subscribe@xdoclet.codehaus.org
             </subscribe>
             <unsubscribe>
-                scm-unsibscribe@xdoclet.codehaus.org
+                scm-unsubscribe@xdoclet.codehaus.org
             </unsubscribe>
             <archive>
                 http://www.mail-archive.com/scm@xdoclet.codehaus.org
@@ -102,6 +102,9 @@
             </archive>
         </mailingList>
     </mailingLists>
+    <prerequisites>
+        <maven>2.0.9</maven>
+    </prerequisites>
     <build>
         <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
         <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
@@ -166,10 +169,24 @@
             <version>1.2.4-SNAPSHOT</version>
         </dependency>
     </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <!-- Also import dependencies as managed by Generama
+                 This is needed so that we don't have to respecify overrides, exclusions, ...
+            -->
+            <dependency>
+                <groupId>org.codehaus.generama</groupId>
+                <artifactId>generama</artifactId>
+                <version>1.2.4-SNAPSHOT</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <ciManagement>
         <notifiers>
             <notifier>
-                <address>xdoclet-devel@lists.sourceforge.net</address>
+                <address>dev@xdoclet.codehaus.org</address>
             </notifier>
         </notifiers>
     </ciManagement>
