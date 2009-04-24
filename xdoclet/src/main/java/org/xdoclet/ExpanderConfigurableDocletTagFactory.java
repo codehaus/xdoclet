@@ -8,8 +8,6 @@ package org.xdoclet;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import java.net.URL;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -19,10 +17,9 @@ import java.util.Set;
 
 import org.generama.ConfigurableDocletTagFactory;
 
-import com.thoughtworks.qdox.model.AbstractJavaEntity;
 import com.thoughtworks.qdox.model.DefaultDocletTag;
 import com.thoughtworks.qdox.model.DocletTag;
-import com.thoughtworks.qdox.model.JavaClass;
+import com.thoughtworks.qdox.model.AbstractBaseJavaEntity;
 
 /**
  * A copy of ConfigurableDocletTagFactory that permits construction with an
@@ -61,7 +58,7 @@ public class ExpanderConfigurableDocletTagFactory extends ConfigurableDocletTagF
         throw new UnsupportedOperationException();
     }
 
-    public DocletTag createDocletTag(String tag, String text, AbstractJavaEntity context, int lineNumber) {
+    public DocletTag createDocletTag(String tag, String text, AbstractBaseJavaEntity context, int lineNumber) {
         if (registeredTags == null) {
             registeredTags = new HashMap();
         }
@@ -74,8 +71,8 @@ public class ExpanderConfigurableDocletTagFactory extends ConfigurableDocletTagF
         }
 
         Class[][] constructors = {
-                {String.class, String.class, AbstractJavaEntity.class, Integer.TYPE, QDoxPropertyExpander.class},
-                {String.class, String.class, AbstractJavaEntity.class, Integer.TYPE}
+                {String.class, String.class, AbstractBaseJavaEntity.class, Integer.TYPE, QDoxPropertyExpander.class},
+                {String.class, String.class, AbstractBaseJavaEntity.class, Integer.TYPE}
             };
         Object[][] constructorArgs = {
                 {tag, text, context, new Integer(lineNumber), expander},
@@ -115,7 +112,7 @@ public class ExpanderConfigurableDocletTagFactory extends ConfigurableDocletTagF
         }
 
         // Could not find a suitable constructor
-        throw new RuntimeException("No (String, String, AbstractJavaEntity, int) constructor in " + tagClass.getName());
+        throw new RuntimeException("No (String, String, AbstractBaseJavaEntity, int) constructor in " + tagClass.getName());
         /*
            try {
                Constructor newTag = tagClass.getConstructor(new Class[] {String.class, String.class, AbstractJavaEntity.class, Integer.TYPE});
@@ -170,28 +167,5 @@ public class ExpanderConfigurableDocletTagFactory extends ConfigurableDocletTagF
             System.out.println("Unknown tag: @" + docletTag.getName() + " in " + getLocation(docletTag) + " (line " +
                 docletTag.getLineNumber() + ")");
         }
-    }
-
-    public static String getLocation(DocletTag tag) {
-        String location = null;
-        URL sourceURL = tag.getContext().getSource().getURL();
-
-        if (sourceURL != null) {
-            location = sourceURL.toExternalForm();
-        } else {
-            // dunno what file it is (might be from a reader).
-            JavaClass clazz;
-
-            if (tag.getContext() instanceof JavaClass) {
-                // it's on a class (outer class)
-                clazz = (JavaClass) tag.getContext();
-            } else {
-                clazz = (JavaClass) tag.getContext().getParent();
-            }
-
-            location = clazz.getFullyQualifiedName();
-        }
-
-        return location;
     }
 }

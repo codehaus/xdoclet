@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.Map.Entry;
 
 
-import com.thoughtworks.qdox.model.AbstractJavaEntity;
+import com.thoughtworks.qdox.model.AbstractBaseJavaEntity;
 import com.thoughtworks.qdox.model.DefaultDocletTag;
 import com.thoughtworks.qdox.model.JavaField;
 import com.thoughtworks.qdox.model.JavaMethod;
@@ -35,12 +35,12 @@ public abstract class XDocletTag extends DefaultDocletTag {
 
 	private String[] parametersExpanded;
 
-	protected XDocletTag(String name, String value, AbstractJavaEntity context,
+	protected XDocletTag(String name, String value, AbstractBaseJavaEntity context,
 			int lineNumber) {
 		this(name, value, context, lineNumber, null);
 	}
 
-	protected XDocletTag(String name, String value, AbstractJavaEntity context,
+	protected XDocletTag(String name, String value, AbstractBaseJavaEntity context,
 			int lineNumber, QDoxPropertyExpander expander) {
 		super(name, value, context, lineNumber);
 		if (JavaMethod.class.isAssignableFrom(getContext().getClass())) {

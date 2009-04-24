@@ -12,7 +12,7 @@ import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.generama.ConfigurableDocletTagFactory;
 
-import com.thoughtworks.qdox.model.AbstractJavaEntity;
+import com.thoughtworks.qdox.model.AbstractBaseJavaEntity;
 import com.thoughtworks.qdox.model.DocletTag;
 import com.thoughtworks.qdox.model.DocletTagFactory;
 
@@ -36,7 +36,7 @@ public class ModelCheckerTagFactory implements DocletTagFactory {
         return retVal;
     }
 
-    public DocletTag createDocletTag(String tag, String text, AbstractJavaEntity context, int lineNumber) {
+    public DocletTag createDocletTag(String tag, String text, AbstractBaseJavaEntity context, int lineNumber) {
         DocletTag retVal = docletTagFactory.createDocletTag(tag, text, context, lineNumber);
         if (retVal instanceof XDocletTag) {
             tagLst.add(retVal);
