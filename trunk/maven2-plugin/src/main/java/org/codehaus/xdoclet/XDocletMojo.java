@@ -17,6 +17,7 @@ import org.codehaus.plexus.util.DirectoryScanner;
 import org.codehaus.plexus.util.FileUtils;
 import org.generama.JellyTemplateEngine;
 import org.generama.MergeableVelocityTemplateEngine;
+import org.generama.FreeMarkerTemplateEngine;
 import org.generama.defaults.FileWriterMapper;
 import org.generama.velocity.ClasspathFileResourceVelocityComponent;
 import org.nanocontainer.DefaultNanoContainer;
@@ -82,6 +83,7 @@ public class XDocletMojo extends AbstractMojo {
 			pico.registerComponentImplementation(FileWriterMapper.class);
 			pico.registerComponentImplementation(JellyTemplateEngine.class);
 			pico.registerComponentImplementation(MergeableVelocityTemplateEngine.class);
+			pico.registerComponentImplementation(FreeMarkerTemplateEngine.class);
 
 			Maven2SourceProvider sourceProvider = new Maven2SourceProvider(
 					config, compileSourceRoots, dependenciesSourcesURLs);
