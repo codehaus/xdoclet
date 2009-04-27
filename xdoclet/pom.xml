@@ -190,15 +190,27 @@
             </notifier>
         </notifiers>
     </ciManagement>
+    <repositories>
+        <repository>
+            <id>snapshots.repository.codehaus.org</id>
+            <url>http://snapshots.repository.codehaus.org</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
     <distributionManagement>
         <repository>
             <id>codehaus.org</id>
-            <name>Codehaus PicoContainer Repository</name>
+            <name>Codehaus Repository</name>
             <url>dav:https://dav.codehaus.org/repository/xdoclet/</url>
         </repository>
         <snapshotRepository>
             <id>codehaus.org</id>
-            <name>Codehaus PicoContainer Snapshot Repository</name>
+            <name>Codehaus Snapshot Repository</name>
             <url>dav:https://dav.codehaus.org/snapshots.repository/xdoclet/</url>
         </snapshotRepository>
         <site>
