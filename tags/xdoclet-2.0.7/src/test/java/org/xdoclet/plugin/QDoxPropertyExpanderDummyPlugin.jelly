@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml" xmlns:jsl="jelly:jsl">
+	<dummy>
+	    <j:forEach var="jClass" items="${metadata}">
+	        <j:forEach var="jTagClass" items="${jClass.getTagByName('dummy.class').getParameters()}">
+	            <dummy-tag
+	            dummy="${jTagClass}"
+	            />
+	        </j:forEach>
+	        <j:set var="jTagClass" value="${jClass.getTagByName('dummy.class')}"/>
+	            <dummy-map
+	            name="${jTagClass.getNamedParameter('name')}"
+	            value="${jTagClass.getNamedParameter('value')}"
+	            extra="${jTagClass.getNamedParameter('extra')}"
+	            />
+	    </j:forEach>
+	</dummy>
+</j:jelly>
